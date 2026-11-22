@@ -1,0 +1,21 @@
+---
+import type { Content, Locale } from '../lib/schema';
+import { offerPeriod, offerStatus } from '../lib/offers';
+interface Props { offers: Content['offers']; lang: Locale; }
+const { offers, lang } = Astro.props;
+const t = (en: string, es: string) => lang === 'en' ? en : es;
+---
+<p class="page-intro">{t('Offers from La Casa Que Canta, with their published stay dates and inclusions. Ask the house to confirm your dates, rate and availability.', 'Ofertas de La Casa Que Canta, con las fechas de estancia y servicios publicados. La casa confirma tus fechas, tarifa y disponibilidad.')}</p>
+{offers.length ? <div class="catalogue-grid offer-grid">
+  {offers.map(offer => <a class="catalogue-card offer-card" href={`/${lang}/offers/${offer.id}/`}>
+    <img src={offer.image} alt={offer.imageAlt[lang]} loading="lazy" />
+    <div>
+      <p class="eyebrow">{t('LA CASA QUE CANTA · OFFER', 'LA CASA QUE CANTA · OFERTA')}</p>
+      <h2>{offer.title[lang]}</h2>
+      <p>{offer.intro[lang]}</p>
+      <p class="offer-period"><strong>{t('Stay dates', 'Fechas de estancia')}</strong><br />{offerPeriod(offer.stayStart, offer.stayEnd, lang)}</p>
+      <span class="status-tag">{offerStatus(offer, lang)}</span>
+      <span class="text-link offer-details-link">{t('View offer & conditions', 'Ver oferta y condiciones')}</span>
+    </div>
+  </a>)}
+</div> : <div class="empty-state"><h2>{t('Your next chapter is open.', 'Tu próximo capítulo está abierto.')}</h2><p>{t('The house has not published an offer yet. Explore the journal or ask about your preferred dates.', 'La casa aún no ha publicado una oferta. Explora la revista o consulta por tus fechas preferidas.')}</p><a class="pill dark" href={`/${lang}/account/stays/`}>{t('Prepare my return', 'Preparar mi regreso')}</a></div>}

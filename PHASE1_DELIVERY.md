@@ -15,6 +15,7 @@ Branche dédiée : `codex/el-sanctuario-v2`. Projet Vercel conservé : `olivier-
 - Programme configurable et inactif par défaut ; opérations idempotentes, verrouillage du membre, registre et audit immuables, corrections et annulations traçables, expiration de points non dépensés lorsqu’elle est configurée.
 - Rôles édition, réception, fidélité et administration. Le personnel publie articles, expériences, événements et éditions avec des formulaires, sans modifier le code.
 - Offres et contrôle serveur des dates et de l’éligibilité. Les offres réservées et brouillons de la maison ne sont pas transmis au catalogue public ou au studio de démonstration.
+- Offres officielles importées de `lacasaquecanta.com/savings2` : Discover Us, Enchanting Moments et Indulge Yourself, avec fiches EN/ES, photos, prestations, conditions, périodes de séjour et sources vérifiées le 22 novembre 2026. Les demandes restent soumises à confirmation et refusent les séjours hors période.
 - PWA installable, EN/ES, téléphone/tablette, navigation clavier, caches éditoriaux séparés des données privées, secrets et base exclus des exports Git.
 
 Les données de démonstration sont isolées par espace et signalées dans les interfaces. Les textes initiaux, l’archive d’exemple et les propositions d’expériences ne sont pas présentés comme des publications ou disponibilités commerciales approuvées.

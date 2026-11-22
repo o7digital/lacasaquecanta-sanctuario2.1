@@ -288,8 +288,8 @@ export const defaultProgram = () =>
 export function offerEligibility(
   offer: {
     status: string;
-    bookingStart: string;
-    bookingEnd: string;
+    bookingStart?: string;
+    bookingEnd?: string;
     stayStart: string;
     stayEnd: string;
     membersOnly: boolean;
@@ -300,8 +300,9 @@ export function offerEligibility(
   dates?: { arrival?: string; departure?: string },
 ) {
   if (offer.status !== "published") return "preview_only";
-  if (today < offer.bookingStart) return "not_open";
-  if (today > offer.bookingEnd) return "expired";
+  if (offer.bookingStart && today < offer.bookingStart) return "not_open";
+  if ((offer.bookingEnd && today > offer.bookingEnd) || today > offer.stayEnd)
+    return "expired";
   if (offer.membersOnly && !membership?.active) return "members_only";
   if (
     offer.tiers.length &&

@@ -271,24 +271,35 @@ export const offerSchema = z
     image: mediaPath,
     imageCredit: z.string().default(""),
     imageAlt: pairSchema.default({ en: "", es: "" }),
-    bookingStart: day,
-    bookingEnd: day,
+    bookingStart: day.optional(),
+    bookingEnd: day.optional(),
     stayStart: day,
     stayEnd: day,
     conditions: pairSchema,
     exclusions: pairSchema,
     price: z.number().min(0).optional(),
-    currency: z.string().length(3),
+    currency: z.string().length(3).optional(),
+    sourceUrl: safeUrl.optional(),
+    sourceUrlEs: safeUrl.optional(),
+    sourceVerifiedAt: day.optional(),
     membersOnly: z.boolean().default(false),
     tiers: z.array(z.enum(["Gold", "Platinum", "Black"])).default([]),
     bookingUrl: safeUrl.optional(),
     relatedIds: z.array(identifier).default([]),
   })
   .refine(
-    (v) => v.bookingEnd >= v.bookingStart && v.stayEnd >= v.stayStart,
+    (v) =>
+      (!v.bookingStart || !v.bookingEnd || v.bookingEnd >= v.bookingStart) &&
+      v.stayEnd >= v.stayStart,
     "Invalid offer dates",
   )
-  .superRefine((v, ctx) =>
+  .superRefine((v, ctx) => {
+    if (v.price !== undefined && !v.currency)
+      ctx.addIssue({
+        code: "custom",
+        path: ["currency"],
+        message: "Currency required with a price",
+      });
     publicationDetails(v, ctx, [
       "title",
       "intro",
@@ -296,8 +307,8 @@ export const offerSchema = z
       "conditions",
       "exclusions",
       "imageAlt",
-    ]),
-  );
+    ]);
+  });
 export const contentSchema = z
   .object({
     version: z.literal(1),

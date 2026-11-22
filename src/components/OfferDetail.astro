@@ -1,0 +1,36 @@
+---
+import type { Content, Locale } from '../lib/schema';
+import { renderBody } from '../lib/content';
+import { offerPeriod, offerStatus } from '../lib/offers';
+import { offerEligibility } from '../lib/circle-schema';
+import { localDay } from '../lib/travel';
+import SaveButton from './SaveButton';
+import OfferAccess from './OfferAccess';
+interface Props { offer: Content['offers'][number]; lang: Locale; }
+const { offer, lang } = Astro.props;
+const t = (en: string, es: string) => lang === 'en' ? en : es;
+const expired = offerEligibility(offer, localDay()) === 'expired';
+const source = lang === 'es' ? offer.sourceUrlEs || offer.sourceUrl : offer.sourceUrl;
+---
+<figure class="offer-photo">
+  <img class="edition-landscape" src={offer.image} alt={offer.imageAlt[lang]} />
+  {offer.imageCredit && <figcaption class="caption">{t('Photography', 'Fotografía')}: {offer.imageCredit}</figcaption>}
+</figure>
+<p class="page-intro">{offer.intro[lang]}</p>
+<p class="status-tag">{offerStatus(offer, lang)}</p>
+<article class="article-prose detail-prose" set:html={renderBody(offer.body[lang])} />
+<dl class="detail-grid offer-terms">
+  <div><dt>{t('Stay dates', 'Fechas de estancia')}</dt><dd>{offerPeriod(offer.stayStart, offer.stayEnd, lang)}</dd></div>
+  {(offer.bookingStart || offer.bookingEnd) && <div><dt>{t('Booking period', 'Periodo de reserva')}</dt><dd>{offerPeriod(offer.bookingStart, offer.bookingEnd, lang)}</dd></div>}
+  <div><dt>{t('Conditions', 'Condiciones')}</dt><dd>{offer.conditions[lang]}</dd></div>
+  <div><dt>{t('Restrictions', 'Restricciones')}</dt><dd>{offer.exclusions[lang]}</dd></div>
+  <div><dt>{t('Rate', 'Tarifa')}</dt><dd>{offer.price !== undefined ? `${offer.price} ${offer.currency}` : t('Ask the house for a quote for your dates.', 'Solicita a la casa una cotización para tus fechas.')}</dd></div>
+</dl>
+{source && <aside class="offer-source">
+  <p>{t('Published by La Casa Que Canta.', 'Publicada por La Casa Que Canta.')} {offer.sourceVerifiedAt && `${t('Source checked', 'Fuente consultada')}: ${offerPeriod(offer.sourceVerifiedAt, undefined, lang)}.`}</p>
+  <a class="text-link" href={source} target="_blank" rel="noopener noreferrer">{t('View the official offer', 'Ver la oferta oficial')}</a>
+</aside>}
+{expired ? <p class="sample-note">{t('The published dates for this offer have ended. Ask the house about a future stay.', 'Las fechas publicadas de esta oferta han terminado. Consulta con la casa por una futura estancia.')}</p> : <>
+  <SaveButton lang={lang} kind="offer" itemId={offer.id} client:load />
+  <OfferAccess lang={lang} offer={offer} client:load />
+</>}

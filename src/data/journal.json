@@ -923,5 +923,120 @@
       }
     }
   ],
-  "offers": []
+  "offers": [
+    {
+      "id": "discover-us",
+      "status": "published",
+      "title": {
+        "en": "Discover Us",
+        "es": "Descúbrenos"
+      },
+      "intro": {
+        "en": "An oceanfront-suite escape with special savings, welcome touches and time by the bay.",
+        "es": "Una escapada en suite frente al mar, con ahorros especiales y detalles de bienvenida."
+      },
+      "body": {
+        "en": "Stay in an oceanfront suite with no minimum number of nights.\n\n- A welcome gift in your suite, fruit each day and a minibar at no extra charge.\n- Twice-daily housekeeping and Wi-Fi.\n- A bed decorated with fresh flowers.\n- Earlier arrival and a later departure can be arranged if available.\n\nAsk reservations for the rate for your chosen dates; no fixed discount or price is published.",
+        "es": "Disfruta una suite frente al mar sin un mínimo de noches.\n\n- Detalle de bienvenida en la suite, fruta cada día y minibar sin cargo adicional.\n- Limpieza dos veces por día y conexión Wi-Fi.\n- Decoración de la cama con flores naturales.\n- Llegada temprana y salida tardía según disponibilidad.\n\nSolicita a Reservas la tarifa para tus fechas; no se publica un descuento fijo ni un precio."
+      },
+      "image": "/assets/offers/discover.jpg",
+      "imageCredit": "La Casa Que Canta",
+      "imageAlt": {
+        "en": "La Casa Que Canta and its illuminated swimming pool at dusk.",
+        "es": "La Casa Que Canta y su alberca iluminada al anochecer."
+      },
+      "stayStart": "2026-11-01",
+      "stayEnd": "2026-12-22",
+      "conditions": {
+        "en": "A deposit secures the reservation. Nightly rates are subject to 20% tax and a 10% service charge. Availability must be confirmed by the hotel. The rate basis is single or double occupancy.",
+        "es": "Se necesita un depósito para garantizar la reserva. La tarifa nocturna está sujeta a 20% de impuestos y 10% de servicio. El hotel debe confirmar la disponibilidad. La tarifa corresponde a ocupación individual o doble."
+      },
+      "exclusions": {
+        "en": "Promotions cannot be combined. Ask reservations about other restrictions and possible charges for leaving early.",
+        "es": "No se pueden acumular promociones. Consulta las restricciones y los posibles cargos por salir antes de lo previsto."
+      },
+      "sourceUrl": "https://www.lacasaquecanta.com/savings/discover-us",
+      "sourceUrlEs": "https://www.lacasaquecanta.com/es/savings/discover-us",
+      "sourceVerifiedAt": "2026-11-22",
+      "membersOnly": false,
+      "tiers": [],
+      "relatedIds": []
+    },
+    {
+      "id": "enchanting-moments",
+      "status": "published",
+      "title": {
+        "en": "Enchanting Moments",
+        "es": "Momentos Encantadores"
+      },
+      "intro": {
+        "en": "A stay with daily Mexican breakfast for two, served in your suite or at the restaurant.",
+        "es": "Una estancia con desayuno mexicano diario para dos, servido en tu suite o en el restaurante."
+      },
+      "body": {
+        "en": "Make breakfast part of your stay with the Encanto Mexicano menu for two. No minimum number of nights is listed.\n\n- Breakfast each day, a suite welcome gift, fruit and a minibar at no extra charge.\n- Housekeeping twice a day, Wi-Fi and fresh-flower bed decoration.\n- Earlier check-in and later check-out depend on availability.\n\nThe published stay period is June to September 2027. Ask the house for your rate and availability.",
+        "es": "Comparte el desayuno Encanto Mexicano para dos durante tu estancia. No se exige un mínimo de noches.\n\n- Desayuno cada día, detalle de bienvenida, fruta y minibar sin cargo adicional.\n- Limpieza dos veces al día, Wi-Fi y decoración de la cama con flores naturales.\n- Llegada temprana y salida tardía según disponibilidad.\n\nEl periodo de estancia publicado va de junio a septiembre de 2027. Consulta la tarifa y disponibilidad con la casa."
+      },
+      "image": "/assets/offers/enchanting.jpg",
+      "imageCredit": "La Casa Que Canta",
+      "imageAlt": {
+        "en": "A couple sharing a moment above Zihuatanejo Bay.",
+        "es": "Una pareja compartiendo un momento sobre la bahía de Zihuatanejo."
+      },
+      "stayStart": "2027-06-01",
+      "stayEnd": "2027-09-30",
+      "conditions": {
+        "en": "A deposit secures the reservation. Nightly rates are subject to 20% tax and a 10% service charge. Availability must be confirmed by the hotel. The rate basis is single or double occupancy.",
+        "es": "Se necesita un depósito para garantizar la reserva. La tarifa nocturna está sujeta a 20% de impuestos y 10% de servicio. El hotel debe confirmar la disponibilidad. La tarifa corresponde a ocupación individual o doble."
+      },
+      "exclusions": {
+        "en": "Promotions cannot be combined. Ask reservations about other restrictions and possible charges for leaving early.",
+        "es": "No se pueden acumular promociones. Consulta las restricciones y los posibles cargos por salir antes de lo previsto."
+      },
+      "sourceUrl": "https://www.lacasaquecanta.com/savings/enchanting-moments",
+      "sourceUrlEs": "https://www.lacasaquecanta.com/es/savings/enchanting-moments",
+      "sourceVerifiedAt": "2026-11-22",
+      "membersOnly": false,
+      "tiers": [],
+      "relatedIds": []
+    },
+    {
+      "id": "indulge-yourself",
+      "status": "published",
+      "title": {
+        "en": "Indulge Yourself",
+        "es": "Date un Capricho"
+      },
+      "intro": {
+        "en": "A private villa for up to eight guests, with four oceanfront suites and private pools.",
+        "es": "Una villa privada para hasta ocho huéspedes, con cuatro suites frente al mar y albercas privadas."
+      },
+      "body": {
+        "en": "Enjoy four king-bed suites, each with its own pool and ocean-facing terrace, for up to eight guests. No minimum number of nights is listed.\n\n- Chef and butler service from 7 am to 10 pm.\n- Shared pool, bar, dining and lounge spaces.\n- A welcome gift, fruit and a minibar at no extra charge.\n- Daily housekeeping, Wi-Fi and floral bed decoration.\n- Earlier arrival and later departure depend on availability.",
+        "es": "Comparte cuatro suites con cama king, cada una con alberca y terraza hacia el mar, para hasta ocho huéspedes. No se exige un mínimo de noches.\n\n- Atención de chef y mayordomo de 7:00 a 22:00.\n- Alberca principal, bar, comedor y sala para compartir.\n- Detalle de bienvenida, fruta y minibar sin cargo adicional.\n- Limpieza diaria, Wi-Fi y decoración floral de la cama.\n- Llegada temprana y salida tardía según disponibilidad."
+      },
+      "image": "/assets/offers/indulge.jpg",
+      "imageCredit": "La Casa Que Canta",
+      "imageAlt": {
+        "en": "A couple on a sea-facing terrace with a plunge pool.",
+        "es": "Una pareja en una terraza frente al mar con alberca privada."
+      },
+      "stayStart": "2026-11-01",
+      "stayEnd": "2026-12-22",
+      "conditions": {
+        "en": "A deposit secures the reservation. Nightly rates are subject to 20% tax and a 10% service charge. Availability must be confirmed by the hotel. The rate is per villa.",
+        "es": "Se necesita un depósito para garantizar la reserva. La tarifa nocturna está sujeta a 20% de impuestos y 10% de servicio. El hotel debe confirmar la disponibilidad. La tarifa es por villa."
+      },
+      "exclusions": {
+        "en": "Promotions cannot be combined. Ask reservations about other restrictions and possible charges for leaving early.",
+        "es": "No se pueden acumular promociones. Consulta las restricciones y los posibles cargos por salir antes de lo previsto."
+      },
+      "sourceUrl": "https://www.lacasaquecanta.com/savings/indulge-yourself",
+      "sourceUrlEs": "https://www.lacasaquecanta.com/es/savings/indulge-yourself",
+      "sourceVerifiedAt": "2026-11-22",
+      "membersOnly": false,
+      "tiers": [],
+      "relatedIds": []
+    }
+  ]
 }

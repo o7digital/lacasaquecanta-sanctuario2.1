@@ -96,13 +96,19 @@ test("public catalogues and demo editors never expose the house’s private offe
   );
   try {
     const publicEdition = publicContent(await getContent());
-    assert.equal(publicEdition.offers.length, 0);
+    assert.deepEqual(
+      publicEdition.offers.map((offer) => offer.id),
+      publicContent(contentSchema.parse(seed)).offers.map((offer) => offer.id),
+    );
     assert.equal(
       publicEdition.articles.some((a) => a.id === "private-draft-fixture"),
       false,
     );
     const demo = await circle.editorial(staff);
-    assert.equal(demo.content.offers.length, 0);
+    assert.deepEqual(
+      demo.content.offers.map((offer: any) => offer.id),
+      publicContent(contentSchema.parse(seed)).offers.map((offer) => offer.id),
+    );
     assert.equal(
       demo.content.articles.some((a: any) => a.id === "private-draft-fixture"),
       false,

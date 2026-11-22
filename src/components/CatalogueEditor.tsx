@@ -90,13 +90,13 @@ export default function CatalogueEditor({ lang }: { lang: string }) {
           : {
               ...base,
               body: pair(),
-              bookingStart: "",
-              bookingEnd: "",
+              bookingStart: undefined,
+              bookingEnd: undefined,
               stayStart: "",
               stayEnd: "",
               conditions: pair(),
               exclusions: pair(),
-              currency: "",
+              currency: undefined,
               membersOnly: false,
               tiers: [],
               relatedIds: [],
@@ -120,8 +120,18 @@ export default function CatalogueEditor({ lang }: { lang: string }) {
               ? e.target.value === ""
                 ? undefined
                 : Number(e.target.value)
-              : ["start", "end", "verifiedAt", "bookingUrl"].includes(key) &&
-                  !e.target.value
+              : [
+                    "start",
+                    "end",
+                    "verifiedAt",
+                    "bookingUrl",
+                    "bookingStart",
+                    "bookingEnd",
+                    "currency",
+                    "sourceUrl",
+                    "sourceUrlEs",
+                    "sourceVerifiedAt",
+                  ].includes(key) && !e.target.value
                 ? undefined
                 : e.target.value,
           )
@@ -476,13 +486,40 @@ export default function CatalogueEditor({ lang }: { lang: string }) {
             {kind === "offers" && (
               <>
                 {[
-                  ["bookingStart", t("Booking opens", "Inicio de reservas")],
-                  ["bookingEnd", t("Booking closes", "Fin de reservas")],
+                  [
+                    "bookingStart",
+                    t(
+                      "Booking opens (if published)",
+                      "Inicio de reservas (si está publicado)",
+                    ),
+                  ],
+                  [
+                    "bookingEnd",
+                    t(
+                      "Booking closes (if published)",
+                      "Fin de reservas (si está publicado)",
+                    ),
+                  ],
                   ["stayStart", t("First stay date", "Inicio de estancias")],
                   ["stayEnd", t("Last stay date", "Fin de estancias")],
                 ].map(([key, label]) => field(label, key, "date"))}
                 {bilingual("conditions", t("Conditions", "Condiciones"), true)}
                 {bilingual("exclusions", t("Exclusions", "Exclusiones"), true)}
+                {field(
+                  t("Official source (English)", "Fuente oficial (inglés)"),
+                  "sourceUrl",
+                  "url",
+                )}
+                {field(
+                  t("Official source (Spanish)", "Fuente oficial (español)"),
+                  "sourceUrlEs",
+                  "url",
+                )}
+                {field(
+                  t("Source checked on", "Fuente consultada el"),
+                  "sourceVerifiedAt",
+                  "date",
+                )}
                 <label className="check">
                   <input
                     type="checkbox"
