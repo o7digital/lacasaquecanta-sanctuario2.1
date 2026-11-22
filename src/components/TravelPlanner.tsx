@@ -38,6 +38,7 @@ const flightWithContent = (flight: Flight) =>
 
 export default function TravelPlanner({
   lang,
+  travelerName,
   stay,
   plan,
   requests,
@@ -45,6 +46,7 @@ export default function TravelPlanner({
   onSaved,
 }: {
   lang: string;
+  travelerName: string;
   stay: Stay;
   plan?: TravelPlan;
   requests: any[];
@@ -214,10 +216,14 @@ export default function TravelPlanner({
           "Tu viaje, preparado con cuidado.",
         )}
       </h2>
+      <p className="caption" data-testid="travel-owner">
+        {t("Personal travel details for", "Datos personales de viaje de")}{" "}
+        <strong>{travelerName}</strong>
+      </p>
       <p>
         {t(
-          "Share your flight details and ask the house to arrange a taxi or transfer for this stay.",
-          "Comparte tus vuelos y pide a la casa que organice un taxi o traslado para esta estancia.",
+          "Your flights and transfer requests belong to your personal space for this stay. Sign in to the same account on your phone, tablet or computer to find them. The house team can consult these details to prepare your arrival and departure.",
+          "Tus vuelos y solicitudes de traslado pertenecen a tu espacio personal para esta estancia. Inicia sesión en la misma cuenta desde tu teléfono, tableta u ordenador para encontrarlos. El equipo de la casa puede consultar estos datos para preparar tu llegada y salida.",
         )}
       </p>
       {demo && (

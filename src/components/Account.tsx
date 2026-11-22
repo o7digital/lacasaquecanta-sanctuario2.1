@@ -766,6 +766,7 @@ export default function Account({
                 <TravelPlanner
                   key={chosen.id}
                   lang={lang}
+                  travelerName={actor.name}
                   stay={chosen}
                   plan={data.travelPlans?.find(
                     (plan: any) => plan.stayId === chosen.id,

@@ -23,6 +23,7 @@ Les données de démonstration sont isolées par espace et signalées dans les i
 
 - Vols d’arrivée et de départ rattachés au séjour ou au projet : compagnie, numéro, date et heure locale à l’aéroport, aéroport et trajet. Il s’agit de la préparation de l’itinéraire fourni par le voyageur ; aucun billet d’avion n’est acheté ou réservé et aucun statut aérien en temps réel n’est inventé.
 - Demandes de taxi ou transfert pour l’arrivée, le départ ou un autre trajet : lieu de prise en charge, destination, date, heure, personnes, bagages, numéro de vol et notes. Les états et réponses sont suivis dans le même dossier. La réception doit renseigner un prestataire et une référence pour confirmer. Modifier un vol ne modifie pas une demande de taxi déjà envoyée.
+- Dossier personnel : vols et taxis appartiennent à la personne connectée, y compris quand plusieurs clients séjournent au même hôtel aux mêmes dates. Son nom est visible dans le dossier et la connexion au même compte retrouve ses données sur un autre appareil. Les contrôles sont effectués par le serveur.
 - « Cena romántica en la playa » : page complète EN/ES et accès depuis l’accueil, l’exploration et Special Moments ; demande avec date, convives, heure locale souhaitée, occasion, alimentation et contact autorisé pour une surprise. L’emplacement de plage, ses permissions, la météo, le menu, les prix et le montage restent à confirmer par la maison. Aucun créneau ni tarif n’est déclaré disponible.
 
 Les tests couvrent la persistance des vols, les conflits entre appareils, les demandes de taxi figées à l’envoi, la confirmation puis la révision par la réception, le jour du départ, les erreurs réseau et le dîner bilingue. La vérification distante se lance après déploiement avec `TEST_BASE_URL`.
@@ -62,3 +63,7 @@ L’identité du PMS et du CRM de l’hôtel reste inconnue. Le lien de réserva
 ## Phase 2 uniquement
 
 Applications iOS/Android distribuées dans les stores, passes Apple Wallet/Google Wallet et extensions natives. Les API et le même registre de points peuvent être réutilisés ; aucun abonnement mobile payant n’a été créé.
+
+## Précision d’accès demandée après livraison
+
+Olivier a demandé une connexion par Clerk pour les espaces personnels, commune aux appareils et futures applications. Clerk n’est pas installé : Vercel exige l’acceptation personnelle de ses conditions avant provisionnement. L’authentification de démonstration actuelle reste fonctionnelle. La connexion Clerk et l’authentification des applications mobiles ne sont pas déclarées réalisées ; elles nécessitent ce raccordement et leurs propres tests. La web app installable reste le périmètre présent ; une publication App Store/Google Play reste à confirmer.
