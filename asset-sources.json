@@ -1,0 +1,154 @@
+[
+  {
+    "file": "hero.jpg",
+    "source": "https://www.lacasaquecanta.com/images/slider/casa-sunset-1920.jpg",
+    "description": "Sunset terraces and ocean",
+    "width": 1920,
+    "height": 998,
+    "bytes": 362026
+  },
+  {
+    "file": "pool.jpg",
+    "source": "https://www.lacasaquecanta.com/images/slider/dato-slide-02-1920.jpg",
+    "description": "Seawater pool on the bay",
+    "width": 1400,
+    "height": 935,
+    "bytes": 370131
+  },
+  {
+    "file": "dining.jpg",
+    "source": "https://www.lacasaquecanta.com/images/slider/dato-slide-16-1920.jpg",
+    "description": "Breakfast service with sea view",
+    "width": 1400,
+    "height": 935,
+    "bytes": 174067
+  },
+  {
+    "file": "architecture.jpg",
+    "source": "https://www.lacasaquecanta.com/images/slider/custom-slide-07-1920.jpg",
+    "description": "Hotel lobby and ocean",
+    "width": 1400,
+    "height": 1050,
+    "bytes": 363013
+  },
+  {
+    "file": "spa.jpg",
+    "source": "https://www.lacasaquecanta.com/activities/spabyclarins.jpg",
+    "description": "Spa by Clarins",
+    "width": 1168,
+    "height": 1100,
+    "bytes": 96176
+  },
+  {
+    "file": "cuisine.jpg",
+    "source": "https://www.lacasaquecanta.com/mar-y-cielo/1.jpeg",
+    "description": "Mar y Cielo dining terrace at dusk",
+    "width": 1400,
+    "height": 934,
+    "bytes": 268518
+  },
+  {
+    "file": "ensueno.jpg",
+    "source": "https://www.el-ensueno.com/_astro/5.1feE11Za_ZlV4zo.webp",
+    "description": "El Ensueño private pool and sun loungers facing the bay",
+    "width": 1366,
+    "height": 900,
+    "bytes": 312128
+  },
+  {
+    "file": "murmullo.jpg",
+    "source": "https://www.el-murmullo.com/images/hero/el-murmullo0.webp",
+    "description": "El Murmullo ocean terrace",
+    "width": 1366,
+    "height": 896,
+    "bytes": 239194
+  },
+  {
+    "file": "beach.jpg",
+    "source": "https://www.el-ensueno.com/_astro/6.CkKWZezS_ZMGm51.webp",
+    "description": "El Ensueño private terrace and plunge pool",
+    "width": 1366,
+    "height": 900,
+    "bytes": 264336
+  },
+  {
+    "file": "palapa.jpg",
+    "source": "https://www.el-ensueno.com/_astro/4.DEOj4rc2_1iWvo9.webp",
+    "description": "El Ensueño palapa lounge",
+    "width": 1366,
+    "height": 912,
+    "bytes": 338552
+  },
+  {
+    "file": "hammock.jpg",
+    "source": "https://www.lacasaquecanta.com/images/slider/dato-slide-08-1920.jpg",
+    "description": "Guest relaxing in hammock beside suite pool",
+    "width": 1400,
+    "height": 935,
+    "bytes": 241332
+  },
+  {
+    "file": "infinity.jpg",
+    "source": "https://www.lacasaquecanta.com/images/slider/dato-slide-04-1920.jpg",
+    "description": "Infinity pool facing the bay",
+    "width": 1400,
+    "height": 1050,
+    "bytes": 219835
+  },
+  {
+    "file": "suite.jpg",
+    "source": "https://www.lacasaquecanta.com/images/slider/dato-slide-12-1920.jpg",
+    "description": "Terracotta-toned guest bedroom with hand-painted headboard",
+    "width": 1400,
+    "height": 935,
+    "bytes": 192415
+  },
+  {
+    "file": "bay.jpg",
+    "source": "https://www.lacasaquecanta.com/images/slider/dato-slide-18-1920.jpg",
+    "description": "Mar y Cielo terrace facing the bay at dusk",
+    "width": 1400,
+    "height": 1050,
+    "bytes": 303737
+  },
+  {
+    "file": "sunset.jpg",
+    "source": "https://www.lacasaquecanta.com/images/slider/dato-slide-19-1920.jpg",
+    "description": "Infinity pool and hotel illuminated at twilight",
+    "width": 1400,
+    "height": 934,
+    "bytes": 238682
+  },
+  {
+    "file": "guitar.jpg",
+    "source": "https://www.zihuafest.com/webimg/1000x450.slide_diego-garcia-y-paul-pigat-zihuatanejo-guitar-festival.jpg",
+    "description": "Diego Garcia and Paul Pigat at the Zihuatanejo Guitar Festival",
+    "width": 1000,
+    "height": 450,
+    "bytes": 102968
+  },
+  {
+    "file": "dish.jpg",
+    "source": "https://www.lacasaquecanta.com/mar-y-cielo/9.jpg",
+    "description": "Lobster plated with rice and vegetables, from Mar y Cielo official gallery",
+    "width": 1400,
+    "height": 934,
+    "bytes": 200462
+  },
+  {
+    "file": "ingredients.jpg",
+    "source": "https://www.lacasaquecanta.com/mar-y-cielo/6.jpg",
+    "description": "Fresh plated seafood with avocado and red onion, from Mar y Cielo official gallery",
+    "width": 1400,
+    "height": 934,
+    "bytes": 242266
+  },
+  {
+    "file": "chef-hands.jpg",
+    "source": "https://www.lacasaquecanta.com/mar-y-cielo/4.jpg",
+    "description": "Chef hands adding a final garnish to a dish, face not shown, Mar y Cielo official gallery",
+    "width": 1400,
+    "height": 935,
+    "bytes": 148374
+  }
+]

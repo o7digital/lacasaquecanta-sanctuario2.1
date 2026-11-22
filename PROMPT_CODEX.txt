@@ -1,0 +1,11 @@
+Reprends le projet El Sanctuario à partir du ZIP joint.
+
+Décompresse-le, lis README.md, ETAT_FONCTIONNEL.md puis CODEX_INSTRUCTIONS.md et exécute les étapes dans cet ordre.
+
+Utilise les sources de dist/ et garde exactement cette nouvelle direction visuelle, les vraies photos de l'hôtel et la rubrique La lettre du chef. Le fichier El_Sanctuario.html est l'aperçu autonome de référence.
+
+Identifie le dépôt cible, travaille dans une branche dédiée et transforme cette maquette en revue web desktop/mobile exploitable, en anglais et espagnol. Réutilise les services existants pour le CMS, la newsletter, le carnet et les demandes de séjour. Les applications natives iOS/Android sont une option ultérieure.
+
+Ne considère pas les formulaires de démonstration comme des intégrations terminées. Préserve le site actuel de La Casa Que Canta. Termine les parties indépendantes si un accès manque, puis indique précisément le raccordement restant.
+
+Livre le code sauvegardé, les vérifications réalisées et un lien HTTPS direct vers une prévisualisation accessible sans compte ChatGPT, dans la conversation. N'ouvre pas de navigateur externe à ma place.
