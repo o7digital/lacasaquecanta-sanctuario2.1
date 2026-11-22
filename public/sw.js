@@ -1,7 +1,8 @@
 const PREFIX = 'el-sanctuario-21-';
-const CACHE = PREFIX + 'v2';
+const CACHE = PREFIX + 'v3';
 const BUILD_ASSETS = []; // Filled by scripts/precache.mjs after the build.
-const allowed = url => url.origin === self.location.origin && (/^\/(en|es)\/(?:stories\/[a-z0-9-]+\/)?$/.test(url.pathname) || /^\/(assets|_astro)\/[\w./-]+$/.test(url.pathname) || url.pathname === '/offline/' || url.pathname === '/');
+const allowed = url => url.origin === self.location.origin && !url.search && (/^\/(en|es)\/(?:(?:stories|editions|categories)\/[a-z0-9-]+\/|(?:archives|chef-letters)\/)?$/.test(url.pathname) || /^\/(assets|_astro)\/[\w./-]+$/.test(url.pathname) || /^\/media\/[a-f0-9-]{36}$/.test(url.pathname) || url.pathname === '/offline/' || url.pathname === '/');
+const publicResponse = response => response.ok && !response.redirected && !/private/i.test(response.headers.get('Cache-Control') || '');
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(['/en/', '/es/', '/offline/', '/assets/editorial.ttf', '/assets/editorial-italic.ttf', '/assets/sans.ttf', '/assets/icon-192.png', '/assets/hero.jpg', '/assets/infinity.jpg', '/assets/sunset.jpg', ...BUILD_ASSETS])));
   self.skipWaiting();
@@ -14,7 +15,7 @@ self.addEventListener('message', event => {
   event.waitUntil(caches.open(CACHE).then(cache => Promise.allSettled(event.data.urls.slice(0,25).map(async value => {
     if (typeof value !== 'string') return;
     const url = new URL(value,self.location.origin); if (!allowed(url)) return;
-    const response = await fetch(url); if (response.ok && !response.redirected) await cache.put(url,response);
+    const response = await fetch(url); if (publicResponse(response)) await cache.put(url,response);
   }))));
 });
 self.addEventListener('fetch', event => {
@@ -25,7 +26,7 @@ self.addEventListener('fetch', event => {
     const cache = await caches.open(CACHE);
     try {
       const response = await fetch(request);
-      if (response.ok && !response.redirected) event.waitUntil(cache.put(request,response.clone()));
+      if (publicResponse(response)) event.waitUntil(cache.put(request,response.clone()));
       return response;
     } catch {
       const saved = await cache.match(request);

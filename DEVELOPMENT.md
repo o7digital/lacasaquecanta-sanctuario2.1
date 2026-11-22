@@ -1,84 +1,122 @@
-# Développement et exploitation
+# Exploitation d’El Sanctuario V2
 
-## Sources
+Le cahier des charges V2 conservé dans `docs/` remplace le périmètre précédent. Les URL des articles, les photographies, les traductions, le lien de réservation officiel, le carnet local et la PWA sont conservés.
 
-`src/templates/journal.html` et `src/styles/reference.css` reprennent le HTML/CSS du ZIP. `src/lib/presentation.ts` traduit le gabarit et y insère les articles/événements administrés, rendus côté serveur. `src/pages/[lang]/stories/[id].astro` fournit les articles partageables, métadonnées, hreflang et données structurées. `src/scripts/journal.ts` gère les interactions. `src/data/journal.json` contient articles, recettes, traductions, événements et statuts.
-
-`public/assets/` conserve les photographies et polices du ZIP. Licences : `licenses/` ; provenance : `asset-sources.json`. **`dist/` et `El_Sanctuario.html` restent inchangés**, comme références du prototype initial, et ne sont pas publiés par ce déploiement. La sortie Astro est `build/`.
-
-`scripts/import-prototype.mjs` documente la migration initiale ; ne pas le relancer sur une édition modifiée, car il réimporte les données du prototype. Les versions actuelles Astro/React/Vercel ont été vérifiées auprès de la [documentation Astro](https://docs.astro.build/en/guides/integrations-guide/vercel/), et sont verrouillées par `package-lock.json`.
-
-## Administration éditoriale
-
-Ouvrir `/admin/`. Utiliser un **jeton GitHub à permissions fines**, limité à `o7digital/lacasaquecanta-sanctuario2.1`, avec `Contents: read/write`. Le compte doit avoir le droit d'écrire. Le jeton est envoyé uniquement à l'API GitHub, demeure en mémoire dans l'onglet et n'est enregistré ni dans localStorage ni sur le serveur de la revue.
-
-Le studio réutilise le mécanisme du projet Sanctuario précédent, exclusivement adapté au nouveau dépôt et à `codex/el-sanctuario`. Il gère articles/recettes, traductions EN/ES, crédit et descriptions des photos, téléversement, mise en avant, événements, annulation et suppression. Les articles passent par `draft`, `review`, `sample` ou `published`. Les brouillons et textes en révision sont exclus de la revue publique. Une prévisualisation nettoyée est disponible avant enregistrement. Les écritures utilisent le SHA du fichier pour refuser un écrasement concurrent.
-
-**Le dépôt GitHub est public** : les brouillons ne sont pas confidentiels dans GitHub. Ne pas y mettre de données clients, de secrets ou de contenus confidentiels. La lecture de la revue reste libre, sans compte GitHub ou ChatGPT.
-
-Les changements d'édition sont des commits GitHub sur `codex/el-sanctuario`. Le serveur relit cette branche avec un cache d'environ une minute ; le développement lit le fichier local. Après une modification dans le studio, faire `git pull --ff-only` avant de modifier les mêmes sources localement.
-
-Les huit textes initiaux sont des **échantillons**, dont une recette dérivée de la proposition fournie. Ils ne sont pas attribués au chef comme des déclarations réelles. Valider textes et attribution avant publication commerciale. Les exemples sont exclus de la sitemap ; les aperçus restent `noindex`.
-
-## Newsletter en attente de validation
-
-À la demande d'Olivier du 22 novembre 2026, le formulaire annonce son attente d'activation, ne collecte pas d'adresses et n'affiche aucun faux succès. `/api/newsletter` refuse les inscriptions tant que `NEWSLETTER_ENABLED` n'est pas `true`.
-
-L'adaptateur serveur Mailchimp est repris du projet existant : adresse, langue, intérêts, consentement explicite, piège à robots et contrôle d'origine. Il crée uniquement un contact `pending` pour confirmation par email. Un contact existant n'est ni modifié ni réabonné. Les erreurs sont remontées. La gestion des préférences et la désinscription renvoient au formulaire officiel de l'audience.
-
-Pour l'activer plus tard, valider avec l'hôtel le service, l'audience, l'expéditeur, les textes de consentement et les intérêts. Configurer dans Vercel, jamais dans le dépôt :
-
-```text
-NEWSLETTER_ENABLED=true
-MAILCHIMP_API_KEY
-MAILCHIMP_AUDIENCE_ID
-PUBLIC_NEWSLETTER_MANAGE_URL
-```
-
-Activer une limite de débit persistante au niveau de l'hébergement et tester avec une adresse contrôlée jusqu'à réception de la confirmation et désinscription. La protection en mémoire ne couvre que les rafales sur une instance ; ce n'est pas une limite distribuée. Les tests automatisés de l'adaptateur ne contactent pas Mailchimp et n'envoient aucun email.
-
-L'inspection d'o7 Pulse/Olivia One n'a pas trouvé de contrat d'inscription publique avec double confirmation. Les routes d'envoi de campagnes existantes n'ont pas été présentées comme des routes d'inscription. Aucune production Pulse n'a été modifiée, aucun abonnement payant ajouté.
-
-## Carnet, agenda et séjours
-
-Le carnet conserve articles, recettes, événements, inspirations et dates/désirs de séjour **sur cet appareil**, sans compte. Les favoris du prototype restent compatibles. Export JSON et copie hors connexion des articles sauvegardés sont prévus. Il n'y a pas de synchronisation entre appareils ni d'avantages de fidélité inventés.
-
-L'agenda présente source, lieu, catégorie, vérification et statut. Les événements passés sont archivés visuellement ; les annulations ne proposent plus de séjour. L'export ICS respecte la date de fin exclusive. Les festivals 2027 ont été revérifiés le 22 novembre 2026 auprès de leurs organisateurs : [Guitar Festival, 6–13 mars](https://www.zihuafest.com/) et [Sailfest, 14–27 février](https://www.zihuatanejo-sailfest.com/copy-of-home-1). Ils ne sont pas présentés comme organisés par l'hôtel.
-
-Le séjour peut être conservé dans le carnet et repris. Le formulaire **prépare un email**, à envoyer par le lecteur depuis sa messagerie ; il ne transmet pas une demande automatiquement et ne confirme pas de réservation. Le lien hôtelier SynXis réutilise les identifiants du [site officiel](https://www.lacasaquecanta.com/) et les dates valides. Les villas renvoient vers leurs sites officiels, leurs identifiants de réservation n'étant pas validés ici.
-
-## Météo et PWA
-
-La météo réutilise Open-Meteo via `/api/weather`, avec délai maximal, cache de 15 minutes, contrôle de fraîcheur et erreur explicite sans valeurs inventées. Fuseau : `America/Mexico_City`. Source : [Open-Meteo](https://open-meteo.com/), données [CC BY 4.0](https://open-meteo.com/en/license), températures arrondies pour l'affichage. La prévisualisation utilise l'API d'évaluation ; avant exploitation commerciale, configurer une clé client existante `OPEN_METEO_API_KEY` ou le fournisseur validé par l'hôtel, selon les [conditions du fournisseur](https://open-meteo.com/en/pricing).
-
-Le service worker utilise uniquement les caches `el-sanctuario-21-*`, préserve les caches des autres applications et exclut les API et l'administration. Les articles sauvegardés sont disponibles lorsque leur téléchargement est terminé. L'édition hors connexion indique son ancienneté ; la météo n'est jamais servie depuis ce cache. Notifications et applications natives iOS/Android ne sont pas livrées.
-
-## Vérification et déploiement
-
-Node.js 24 LTS. Les contrôles :
+## Installation
 
 ```sh
 npm ci
+npm run setup:local
+npm run db:local
+npm run db:migrate
+npm run dev
+```
+
+Node.js 24 LTS. `setup:local` complète `.env.local` sans écraser ses valeurs, génère un secret aléatoire et limite les droits du fichier. `db:local` utilise `compose.yaml`, avec PostgreSQL sur `127.0.0.1:5543`. Le mot de passe de cet exemple Docker est exclusivement local. Avec PostgreSQL installé autrement, créer `sanctuario_v2`, configurer `DATABASE_URL`, puis migrer.
+
+Astro peut démarrer en arrière-plan : `npx astro dev status`, `npx astro dev logs`, `npx astro dev stop`. Ouvrir les URL dans Firefox.
+
+## Sources et données
+
+Astro rend les pages publiques ; React gère les espaces privés. `src/data/journal.json` demeure l’édition initiale exportable. `contentSchema` valide ensemble articles, événements, éditions, expériences et offres. Lorsqu’une édition de la maison existe dans `sc_editorial`, elle devient la source active du même modèle, relue immédiatement par les pages publiques. Une version empêche l’écrasement d’un autre éditeur.
+
+En cas de panne de base, la copie éditoriale embarquée reste lisible ; les écritures privées échouent explicitement. `/admin/legacy/` conserve l’ancien studio GitHub pour la reprise des sources, sans remplacer une édition déjà enregistrée en base.
+
+`migrations/001-circle.sql` décrit les tables applicatives. Les tables d’identité et de limitation d’accès sont générées par les migrations de Better Auth, verrouillé dans `package-lock.json`. `npm run db:migrate` exécute les deux. Aucune migration ne s’exécute implicitement pendant une visite ou une compilation.
+
+Les photos téléversées par un éditeur sont conservées dans `sc_media`, limitées à 3 Mo et servies avec type d’image et `nosniff`. Les images de la maison sont publiques ; les médias de démonstration restent limités à leur espace. Ne téléverser que des médias autorisés à la publication.
+
+## Comptes réels
+
+Variables serveur : `DATABASE_URL`, `BETTER_AUTH_SECRET` (au moins 32 caractères aléatoires), `RESEND_API_KEY`, `AUTH_EMAIL_FROM` et, pour le premier administrateur, `STAFF_BOOTSTRAP_EMAIL`.
+
+L’expéditeur doit être vérifié chez le prestataire d’e-mail. Les inscriptions et la récupération restent fermées tant que ce prestataire manque. Better Auth assure vérification de l’adresse, sessions en base, cookies HttpOnly, contrôle d’origine et limitation des tentatives. Une erreur du prestataire ne devient pas une annonce d’e-mail envoyé.
+
+Le premier administrateur doit vérifier sa propre adresse. Son attribution initiale est refusée si un administrateur existe déjà. Retirer ensuite `STAFF_BOOTSTRAP_EMAIL` et gérer les rôles dans le studio. Aucun client ne peut s’attribuer un rôle, un niveau, un solde ou un séjour confirmé.
+
+Les e-mails de vérification/récupération sont testés avec un prestataire substitué dans les tests locaux uniquement, sans envoi réel. Vérifier une livraison réelle après configuration. Un compte ne vaut pas consentement marketing.
+
+## Démonstration isolée
+
+Activer `DEMO_ENABLED=true` avec une base migrée et le secret d’identité. Sur `/en/login/` ou `/es/login/`, choisir le parcours client ou personnel.
+
+Chaque nouveau navigateur reçoit un espace privé `demo:<uuid>`, trois identités fictives, des cartes Gold/Platinum/Black, un séjour passé, un prochain séjour fictif et un crédit de test. Les seuils et les 100 points sont des fixtures sans valeur commerciale. La bascule client/réception n’agit que dans cet espace et ne donne aucun accès aux données de la maison ou d’un autre espace. Le cookie de démonstration est opaque et HttpOnly. Les espaces expirent après sept jours. N’y saisir aucune information personnelle réelle.
+
+Le carnet est réellement enregistré dans PostgreSQL. Le test Firefox ouvre un second contexte et y reconnecte le même compte de démonstration ; il ne simule pas la synchronisation avec localStorage.
+
+## Guide court du studio
+
+| Rôle | Écrans autorisés |
+| --- | --- |
+| Édition | Articles, recettes, événements, éditions et sommaires, expériences, offres et photos |
+| Réception / conciergerie | Clients, préférences partagées, séjours, demandes, réponses et scan |
+| Fidélité | Règles, niveaux, opérations, corrections et scan |
+| Administration | Tous les écrans, permissions et audit |
+
+**Édition.** Compléter les deux langues, signature, sources, descriptions et crédits, choisir le statut puis sauvegarder. Les brouillons et textes en révision restent hors de la revue. Les échantillons sont signalés et exclus de la sitemap. Les éditions ont leur sommaire ; expériences et offres ont leurs formulaires. Le personnel doit renseigner les conditions commerciales approuvées.
+
+**Demandes.** Ouvrir la demande enregistrée, lire les souhaits et le contact autorisé, répondre et choisir l’état suivant. Confirmer exige une référence réelle. Les réponses sont visibles dans le même dossier du compte client. Aucun envoi d’e-mail de conciergerie n’est annoncé. Une surprise ne notifie pas automatiquement l’autre voyageur. Les textes restent dans le formulaire en cas d’échec.
+
+**Séjours.** Choisir le compte vérifié, l’établissement, les dates, le statut, la référence et la source réellement consultée. L’import est daté et journalisé. Une référence et une source identiques ne créent pas plusieurs séjours. Un projet du lecteur ne devient ni réservation ni crédit de points.
+
+**Fidélité.** Le programme de la maison est inactif par défaut, sans seuil ni avantage. Renseigner nom, critères Gold/Platinum/Black, opérations, points, conditions et avantages avant activation. Attribuer un niveau exige un rôle autorisé et une justification.
+
+Les points sont calculés sur le serveur à partir d’une règle et d’un événement validé : séjour terminé importé, expérience confirmée ou référence de échange vérifiée. Le serveur verrouille le membre et impose un identifiant d’événement unique. Un scan ne crédite rien. Les corrections et annulations ajoutent des écritures opposées. Les tables de points et d’audit refusent mise à jour et suppression.
+
+Une durée de validité configurée concerne les nouveaux crédits ; l’expiration ne retire que la part non dépensée et non déjà annulée. Une nouvelle règle ne modifie pas les anciennes écritures. Les soldes proviennent du registre, jamais du navigateur.
+
+**Scan.** Le QR d’adhésion ouvre `/en/join/`. Le QR personnel contient un jeton aléatoire valable dix minutes et révocable, sans préférence ni coordonnée. La caméra se lance sur action du personnel ; une saisie manuelle est disponible. Un code non autorisé, expiré, révoqué ou provenant d’un autre espace ne retourne pas le profil.
+
+## Confidentialité et PWA
+
+Chaque session est reliée sur le serveur à son utilisateur et à son espace. Les champs alimentaires sont distincts des goûts, facultatifs, modifiables et supprimables. « Only me » exclut les allergies de la réponse à la réception. Le rôle fidélité ne reçoit pas le profil alimentaire. L’accusé de lecture ne garantit aucune prestation alimentaire.
+
+Les comptes, API et pages du personnel utilisent `private, no-store`. Le service worker admet seulement les pages éditoriales prévues et les ressources publiques. Il ne cache ni compte ni API ni réponse privée, et ne nettoie que `el-sanctuario-21-*`. Les formulaires indiquent qu’une action n’a pas été envoyée hors connexion. Le carnet local est importé par action explicite, sans doublons.
+
+Secrets, base locale, traces Firefox, dépendances et compilation sont exclus du dépôt et du téléversement Vercel. L’export Git du code ne contient aucune donnée de la base.
+
+## Intégrations à activer
+
+| Service | Présent | Encore nécessaire |
+| --- | --- | --- |
+| Base privée | PostgreSQL, migrations et parcours locaux réels | Création/connexion de Neon dans Vercel ; acceptation des conditions par le propriétaire |
+| Identité | Vérification et récupération testées localement | Clé Resend, expéditeur vérifié, premier administrateur et livraison réelle vérifiée |
+| Réservations | Lien officiel SynXis, import contrôlé, adaptateur entrant signé | Nom du PMS réel, contrat d’API, accès et correspondance des comptes |
+| CRM | Interface isolée et erreur explicite sans connexion | Fournisseur réel et contrat d’échange |
+| Newsletter | Adaptateur Mailchimp, langue, thèmes et double confirmation | Confirmation du fournisseur de l’hôtel, clé, audience et URL de préférences/désinscription |
+| Météo | Open-Meteo, unités, heure locale, fraîcheur et erreur explicite | Pour l’exploitation commerciale : fournisseur ou clé validé par l’hôtel |
+| Circle | Registre, rôles, cartes et scan | Barèmes, critères, avantages et conditions approuvés |
+
+Aucun fournisseur PMS ou CRM n’a pu être identifié dans ce dépôt. Le lien SynXis n’accorde pas d’accès aux réservations. Mailchimp est un adaptateur conservé, pas la preuve d’un compte hôtelier connecté.
+
+### Séjours entrants
+
+`POST /api/integrations/stays` reste fermé sans `INBOUND_STAY_SECRET`, `INBOUND_STAY_ACTOR_ID` et `INBOUND_STAY_SOURCE`. Le compte de service doit appartenir au personnel de la maison. Envoyer le JSON défini par `HotelReservation` avec `x-sc-timestamp` (secondes Unix) et `x-sc-signature` : HMAC-SHA256 du texte `timestamp + "." + corps_JSON_exact`, en hexadécimal. La signature expire après cinq minutes.
+
+Le client doit correspondre à une adresse vérifiée. `INBOUND_STAY_OPERATION`, facultatif, désigne une règle de crédit des séjours terminés ; le compte de service doit alors aussi avoir le rôle fidélité. Références et crédits sont idempotents. Aucun flux PMS réel n’est revendiqué.
+
+### Newsletter
+
+Après confirmation d’un compte Mailchimp par l’hôtel : `NEWSLETTER_ENABLED=true`, `MAILCHIMP_API_KEY`, `MAILCHIMP_AUDIENCE_ID`, `PUBLIC_NEWSLETTER_MANAGE_URL`. Seul un contact `pending` est créé avec langue et thèmes. Un contact existant n’est ni réabonné ni modifié silencieusement. Vérifier confirmation, préférences et désinscription avec une adresse contrôlée. Les choix du profil ne deviennent pas automatiquement un abonnement confirmé.
+
+## Vérification et publication
+
+```sh
 npm run check
 npm test
+npm run test:integration
 npm run test:e2e
 npm run build
 ```
 
-Les tests du studio simulent GitHub pour éviter des écritures éditoriales de test. Les tests d'intégration couvrent consentement, erreurs de fournisseur et absence de faux succès sans envoyer d'email. Les parcours Firefox vérifient EN/ES, lecture sans JavaScript, recherche, filtres, carnet persistant, agenda, séjours, mobile et autorisations d'écriture. Tester aussi le déploiement compilé et son mode hors connexion :
-
-```sh
-TEST_BASE_URL=https://el-sanctuario-21.vercel.app npm run test:e2e
-```
-
-Astro peut lancer le serveur local en arrière-plan : `npx astro dev status`, `npx astro dev logs`, `npx astro dev stop`. Les aperçus navigateur utilisent Firefox.
-
-Le projet est `olivier-steineur/el-sanctuario-21` (`prj_R51X3spb8kne8bZok2ZACtPIlZgO`), distinct des sites hôteliers existants. Vérifier ce contexte avant toute mutation :
+Les tests d’intégration refusent une base distante et ne contactent aucun destinataire réel. Le test hors connexion nécessite un déploiement compilé avec `TEST_BASE_URL`. La caméra nécessite un appareil réel et son autorisation ; saisie manuelle et contrôles serveur sont automatisés dans Firefox.
 
 ```sh
 vercel project inspect --non-interactive
-git push origin codex/el-sanctuario
-vercel deploy --prod --yes
+git push -u origin codex/el-sanctuario-v2
+vercel deploy --prod --yes --scope olivier-steineur --project el-sanctuario-21
 ```
 
-Le déploiement « production » appartient **au projet de prévisualisation distinct**, sans domaine hôtelier. Ne pas relier ce dossier aux projets La Casa Que Canta existants. `.env.example` décrit les variables sans secrets : `CONTENT_BRANCH` vaut par défaut `codex/el-sanctuario`, `PUBLIC_SITE_URL` fixe l'origine canonique, `PUBLIC_INDEXABLE` reste désactivé sur les aperçus. Les métadonnées sont générées par langue ; la sitemap contient uniquement les articles effectivement publiés et les accueils.
+Projet indépendant : `olivier-steineur/el-sanctuario-21`, ID `prj_R51X3spb8kne8bZok2ZACtPIlZgO`. Il ne remplace pas le site hôtelier. `PUBLIC_SITE_URL` fixe l’origine canonique et `PUBLIC_INDEXABLE` reste faux pour la preview. Utiliser des bases et secrets distincts pour un futur domaine commercial. Migrer explicitement la base cible avant ouverture des comptes.
+
+Applications iOS/Android, Apple Wallet/Google Wallet et diffusion dans les stores restent en phase 2. La phase 1 fournit la PWA et des API réutilisables.

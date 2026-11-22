@@ -1,0 +1,10 @@
+---
+import type {Locale} from '../lib/schema';
+const {lang}=Astro.props as {lang:Locale};
+const t=(en:string,es:string)=>lang==='en'?en:es;
+const other=lang==='en'?'es':'en';
+const links=[['',t('The journal','La revista')],['explore/',t('To experience','Para vivir')],['offers/',t('Offers','Ofertas')],['account/',t('My space','Mi espacio')]];
+---
+<a class="skip" href="#main-content">{t('Skip to content','Saltar al contenido')}</a>
+<header class="site-header"><a href={`/${lang}/`} class="site-brand">El Sanctuario<small>LA CASA QUE CANTA</small></a><nav aria-label={t('Main navigation','Navegación principal')}>{links.map(([path,label])=><a href={`/${lang}/${path}`}>{label}</a>)}</nav><a class="language" href={Astro.url.pathname.replace(/^\/(en|es)/,`/${other}`)} hreflang={other}>{lang.toUpperCase()} / {other.toUpperCase()}</a></header>
+<nav class="v2-mobile" aria-label={t('Mobile navigation','Navegación móvil')}>{[['',t('Read','Leer')],['explore/',t('Explore','Explorar')],['account/stays/',t('My stays','Mis estancias')],['account/card/',t('My card','Mi tarjeta')],['account/profile/',t('Profile','Perfil')]].map(([path,label],i)=><a href={`/${lang}/${path}`}><span aria-hidden="true">{['▤','◈','▦','▱','○'][i]}</span>{label}</a>)}</nav>

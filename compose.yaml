@@ -1,0 +1,11 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: sanctuario_v2
+      POSTGRES_USER: sanctuario
+      POSTGRES_PASSWORD: sanctuario-local-only
+    ports:
+      - "127.0.0.1:5543:5432"
+    volumes:
+      - ./.local/postgres-docker:/var/lib/postgresql/data
