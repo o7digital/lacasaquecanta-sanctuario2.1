@@ -20,7 +20,7 @@ Astro.response.headers.set('Cache-Control', 'no-store');
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(structured).replace(/</g, '\\u003c')} />
   <a class="skip" href="#article">{t('Skip to the article', 'Saltar al artículo')}</a>
   <header class="reading-nav">
-    <a class="mini-title" href={`/${lang}/`}>El Sanctuario</a>
+    <a class="mini-title sanctuary-brand" aria-label="El Sanctuario by La Casa Que Canta" href={`/${lang}/`}><span class="brand-title">El Sanctuario</span><span class="brand-byline">by La Casa Que Canta</span></a>
     <nav aria-label={t('Article navigation', 'Navegación del artículo')}>
       <a class="language" href={articlePath(lang === 'en' ? 'es' : 'en', article.id)} hreflang={lang === 'en' ? 'es' : 'en'}>{lang.toUpperCase()} / {lang === 'en' ? 'ES' : 'EN'}</a>
       <button class="saved-trigger">{t('My notebook', 'Mi cuaderno')} <span class="saved-count">0</span></button>

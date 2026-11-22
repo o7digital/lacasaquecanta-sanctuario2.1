@@ -52,6 +52,7 @@ export function journalMarkup(
     );
   });
   const t = (en: string, es: string) => (lang === "en" ? en : es);
+  $(".house-brand").attr("href", `/${lang}/`);
   const hour = Number(
     new Intl.DateTimeFormat("en-US", {
       timeZone: "America/Mexico_City",

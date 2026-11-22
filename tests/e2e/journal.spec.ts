@@ -48,12 +48,20 @@ test("reading, filtering, search, recipes and persistent notebook work across la
   await page.locator("[data-filter=recipe]").click();
   await expect(page.locator(".story-card")).toHaveCount(1);
   await page.locator("[data-save=avocado-lime]").click();
+  await expect(page.locator("[data-save=avocado-lime]")).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
   await page.locator("#search-trigger").click();
   await page.locator("#search-input").fill("clarins");
   await expect(page.locator(".search-result")).toHaveCount(1);
   await page.locator(".search-result").click();
   await expect(page).toHaveURL(/\/en\/stories\/spa\//);
   await page.locator(".reader-actions [data-save=spa]").click();
+  await expect(page.locator(".reader-actions [data-save=spa]")).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
   await page.goto("/es/");
   await page.locator(".header-actions .saved-trigger").click();
   await expect(page.locator("#notebook-content")).toContainText(

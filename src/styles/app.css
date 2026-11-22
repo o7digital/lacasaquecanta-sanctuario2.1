@@ -1,4 +1,28 @@
 :root{--ink:#283d37;--serif:"Editorial",Georgia,serif;--sans:Sans,Arial,sans-serif}
+.sanctuary-brand,
+.house-brand.sanctuary-brand {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  letter-spacing: normal;
+  text-decoration: none;
+}
+.sanctuary-brand .brand-title {
+  font: 400 30px/1 var(--serif);
+  letter-spacing: -0.6px;
+  white-space: nowrap;
+}
+.sanctuary-brand .brand-byline {
+  font: 400 14px/1.35 var(--sans);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+@media (max-width: 620px) {
+  .sanctuary-brand .brand-title {
+    font-size: 26px;
+  }
+}
 /* Keep white cover text readable over bright and detailed photographs. */
 .masthead h1 {
   background: linear-gradient(90deg, transparent, rgb(12 24 20 / 24%) 14%, rgb(12 24 20 / 24%) 86%, transparent);
