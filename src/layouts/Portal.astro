@@ -2,11 +2,12 @@
 import Layout from './Layout.astro';
 import SiteNav from '../components/SiteNav.astro';
 import type {Locale} from '../lib/schema';
+import {brandName} from '../lib/brand';
 const {lang,title,description,noindex=false}=Astro.props as {lang:Locale;title:string;description?:string;noindex?:boolean};
 const t=(en:string,es:string)=>lang==='en'?en:es;
 ---
-<Layout lang={lang} title={`${title} — El Sanctuario`} description={description} noindex={noindex}>
+<Layout lang={lang} title={`${title} — ${brandName(lang)}`} description={description} noindex={noindex}>
  <SiteNav lang={lang}/><main id="main-content" class="portal-main"><slot/></main>
- <footer class="portal-footer"><a class="mini-title" href={`/${lang}/`}>El Sanctuario</a><p>La Casa Que Canta · Zihuatanejo, México</p><div><a href={`/${lang}/archives/`}>{t('Archives','Archivo')}</a><a href={`/${lang}/weddings/`}>{t('Weddings','Bodas')}</a><a href={`/${lang}/special-moments/`}>{t('Special Moments','Momentos especiales')}</a><a href={`/${lang}/join/`}>El Sanctuario Circle</a><a href="/admin/">{t('House team','Equipo de la casa')}</a><a href="https://www.lacasaquecanta.com/privacy-policy" rel="noopener" target="_blank">{t('Privacy','Privacidad')}</a></div></footer>
+ <footer class="portal-footer"><a class="mini-title" href={`/${lang}/`}>{brandName(lang)}</a><p>La Casa Que Canta · Zihuatanejo, México</p><div><a href={`/${lang}/archives/`}>{t('Archives','Archivo')}</a><a href={`/${lang}/weddings/`}>{t('Weddings','Bodas')}</a><a href={`/${lang}/special-moments/`}>{t('Special Moments','Momentos especiales')}</a><a href={`/${lang}/join/`}>{brandName(lang)} Circle</a><a href="/admin/">{t('House team','Equipo de la casa')}</a><a href="https://www.lacasaquecanta.com/privacy-policy" rel="noopener" target="_blank">{t('Privacy','Privacidad')}</a></div></footer>
  <script>if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(()=>{});</script>
 </Layout>

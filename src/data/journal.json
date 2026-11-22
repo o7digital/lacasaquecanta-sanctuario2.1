@@ -7,8 +7,8 @@
       "status": "sample",
       "featured": true,
       "author": {
-        "en": "El Sanctuario · editorial sample",
-        "es": "El Sanctuario · muestra editorial"
+        "en": "Sanctuary · editorial sample",
+        "es": "El Santuario · muestra editorial"
       },
       "date": "2026-11-20",
       "updatedAt": "2026-11-22",
@@ -43,8 +43,8 @@
       "status": "sample",
       "featured": false,
       "author": {
-        "en": "El Sanctuario · editorial sample",
-        "es": "El Sanctuario · muestra editorial"
+        "en": "Sanctuary · editorial sample",
+        "es": "El Santuario · muestra editorial"
       },
       "date": "2026-11-20",
       "updatedAt": "2026-11-22",
@@ -78,8 +78,8 @@
       "status": "sample",
       "featured": false,
       "author": {
-        "en": "El Sanctuario · editorial sample",
-        "es": "El Sanctuario · muestra editorial"
+        "en": "Sanctuary · editorial sample",
+        "es": "El Santuario · muestra editorial"
       },
       "date": "2026-11-20",
       "updatedAt": "2026-11-22",
@@ -113,8 +113,8 @@
       "status": "sample",
       "featured": false,
       "author": {
-        "en": "El Sanctuario · editorial sample",
-        "es": "El Sanctuario · muestra editorial"
+        "en": "Sanctuary · editorial sample",
+        "es": "El Santuario · muestra editorial"
       },
       "date": "2026-11-20",
       "updatedAt": "2026-11-22",
@@ -148,8 +148,8 @@
       "status": "sample",
       "featured": false,
       "author": {
-        "en": "El Sanctuario · editorial sample",
-        "es": "El Sanctuario · muestra editorial"
+        "en": "Sanctuary · editorial sample",
+        "es": "El Santuario · muestra editorial"
       },
       "date": "2026-11-20",
       "updatedAt": "2026-11-22",
@@ -183,8 +183,8 @@
       "status": "sample",
       "featured": false,
       "author": {
-        "en": "El Sanctuario · editorial sample",
-        "es": "El Sanctuario · muestra editorial"
+        "en": "Sanctuary · editorial sample",
+        "es": "El Santuario · muestra editorial"
       },
       "date": "2026-11-20",
       "updatedAt": "2026-11-22",
@@ -218,8 +218,8 @@
       "status": "sample",
       "featured": false,
       "author": {
-        "en": "El Sanctuario · editorial sample",
-        "es": "El Sanctuario · muestra editorial"
+        "en": "Sanctuary · editorial sample",
+        "es": "El Santuario · muestra editorial"
       },
       "date": "2026-11-20",
       "updatedAt": "2026-11-22",
@@ -253,8 +253,8 @@
       "status": "sample",
       "featured": false,
       "author": {
-        "en": "El Sanctuario · editorial sample",
-        "es": "El Sanctuario · muestra editorial"
+        "en": "Sanctuary · editorial sample",
+        "es": "El Santuario · muestra editorial"
       },
       "date": "2026-11-20",
       "updatedAt": "2026-11-22",
@@ -301,8 +301,8 @@
       "featured": false,
       "editionId": "the-art-of-returning",
       "author": {
-        "en": "El Sanctuario · editorial sample",
-        "es": "El Sanctuario · muestra editorial"
+        "en": "Sanctuary · editorial sample",
+        "es": "El Santuario · muestra editorial"
       },
       "date": "2026-11-22",
       "updatedAt": "2026-11-22",
@@ -336,8 +336,8 @@
       "featured": false,
       "editionId": "the-art-of-returning",
       "author": {
-        "en": "El Sanctuario · editorial sample",
-        "es": "El Sanctuario · muestra editorial"
+        "en": "Sanctuary · editorial sample",
+        "es": "El Santuario · muestra editorial"
       },
       "date": "2026-11-22",
       "updatedAt": "2026-11-22",
@@ -427,8 +427,8 @@
         "es": "Un lugar. Una emoción. Un vínculo."
       },
       "intro": {
-        "en": "A table by the ocean, a letter from the kitchen, a reason to come back. The first proposed issue of El Sanctuario.",
-        "es": "Una mesa junto al mar, una carta desde la cocina, un motivo para volver. El primer número propuesto de El Sanctuario."
+        "en": "A table by the ocean, a letter from the kitchen, a reason to come back. The first proposed issue of Sanctuary.",
+        "es": "Una mesa junto al mar, una carta desde la cocina, un motivo para volver. El primer número propuesto de El Santuario."
       },
       "image": "/assets/hero.jpg",
       "articleIds": [

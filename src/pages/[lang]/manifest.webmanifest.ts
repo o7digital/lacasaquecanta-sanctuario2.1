@@ -1,4 +1,5 @@
 import type { APIRoute } from "astro";
+import { brandName } from "../../lib/brand";
 export const GET: APIRoute = ({ params }) => {
   const lang = params.lang;
   if (lang !== "en" && lang !== "es")
@@ -6,8 +7,8 @@ export const GET: APIRoute = ({ params }) => {
   return Response.json(
     {
       id: "/el-sanctuario",
-      name: "El Sanctuario — La Casa Que Canta",
-      short_name: "El Sanctuario",
+      name: `${brandName(lang)} — La Casa Que Canta`,
+      short_name: brandName(lang),
       lang,
       description:
         lang === "en"

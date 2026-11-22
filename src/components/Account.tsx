@@ -6,6 +6,7 @@ import { interests } from "../lib/circle-schema";
 import { bookingUrl, localDay } from "../lib/travel";
 import AuthForm from "./AuthForm";
 import TravelPlanner from "./TravelPlanner";
+import { localizeBrand } from "../lib/brand";
 export const interestLabel = (value: string, lang: string) =>
   (
     ({
@@ -1152,11 +1153,13 @@ export default function Account({
         )}
         {tab === "card" && (
           <>
-            <h2>{data.program.name}</h2>
+            <h2>{localizeBrand(data.program.name, lang)}</h2>
             <div
               className={`member-card ${(data.membership.tier || "pending").toLowerCase()}`}
             >
-              <span>{data.program.name.toUpperCase()}</span>
+              <span>
+                {localizeBrand(data.program.name, lang).toUpperCase()}
+              </span>
               <h3>{actor.name}</h3>
               <strong>
                 {data.membership.active

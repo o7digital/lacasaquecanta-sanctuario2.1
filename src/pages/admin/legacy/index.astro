@@ -5,4 +5,4 @@ import '../../../styles/editor.css';
 import {EDITORIAL_BRANCH} from '../../../lib/schema';
 Astro.response.headers.set('Cache-Control','private, no-store');
 ---
-<Layout lang="en" title="GitHub editorial backup — El Sanctuario" noindex><p class="sample-note">GitHub source backup. When the house database has an editorial edition, edit that edition in <a href="/admin/">the house studio</a>. Repository changes do not replace database edits.</p><Editor branch={process.env.CONTENT_BRANCH||EDITORIAL_BRANCH} client:only="react"/></Layout>
+<Layout lang="en" title="GitHub editorial backup — Sanctuary" noindex><p class="sample-note">GitHub source backup. When the house database has an editorial edition, edit that edition in <a href="/admin/">the house studio</a>. Repository changes do not replace database edits.</p><Editor branch={process.env.CONTENT_BRANCH||EDITORIAL_BRANCH} client:only="react"/></Layout>

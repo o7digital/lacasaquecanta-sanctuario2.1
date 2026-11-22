@@ -19,9 +19,9 @@ async function sendIdentityEmail(to: string, url: string, reset = false) {
         from: process.env.AUTH_EMAIL_FROM,
         to: [to],
         subject: reset
-          ? "El Sanctuario · Recover access / Recuperar acceso"
-          : "El Sanctuario · Verify your email / Verifica tu correo",
-        text: `El Sanctuario · La Casa Que Canta\n\n${reset ? "Recover access / Recuperar acceso" : "Verify your email / Verifica tu correo"}\n${url}\n\nIf you did not request this, ignore this email. / Si no lo solicitaste, ignora este correo.`,
+          ? "Sanctuary / El Santuario · Recover access / Recuperar acceso"
+          : "Sanctuary / El Santuario · Verify your email / Verifica tu correo",
+        text: `Sanctuary / El Santuario · La Casa Que Canta\n\n${reset ? "Recover access / Recuperar acceso" : "Verify your email / Verifica tu correo"}\n${url}\n\nIf you did not request this, ignore this email. / Si no lo solicitaste, ignora este correo.`,
       }),
       signal: AbortSignal.timeout(12000),
     });

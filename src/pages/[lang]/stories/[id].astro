@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import {brandName} from '../../../lib/brand';
 import { getContent, publicContent, renderBody } from '../../../lib/content';
 import { articlePath, categoryLabels, readingTime } from '../../../lib/schema';
 import { journalMarkup, storyCard } from '../../../lib/presentation';
@@ -16,11 +17,11 @@ const canonical = new URL(articlePath(lang, article.id), process.env.PUBLIC_SITE
 const structured = { '@context': 'https://schema.org', '@type': 'Article', headline: text.title, description: text.intro, datePublished: article.date, dateModified: article.updatedAt, author: { '@type': 'Organization', name: article.author[lang] }, image: new URL(article.image.src, canonical).href, inLanguage: lang, mainEntityOfPage: canonical, isAccessibleForFree: true };
 Astro.response.headers.set('Cache-Control', 'no-store');
 ---
-<Layout lang={lang} title={`${text.title} — El Sanctuario`} description={text.intro} content={content} articleId={article.id}>
+<Layout lang={lang} title={`${text.title} — ${brandName(lang)}`} description={text.intro} content={content} articleId={article.id}>
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(structured).replace(/</g, '\\u003c')} />
   <a class="skip" href="#article">{t('Skip to the article', 'Saltar al artículo')}</a>
   <header class="reading-nav">
-    <a class="mini-title sanctuary-brand" aria-label="El Sanctuario by La Casa Que Canta" href={`/${lang}/`}><span class="brand-title">El Sanctuario</span><span class="brand-byline">by La Casa Que Canta</span></a>
+    <a class="mini-title sanctuary-brand" aria-label={`${brandName(lang)} by La Casa Que Canta`} href={`/${lang}/`}><span class="brand-title">{brandName(lang)}</span><span class="brand-byline">by La Casa Que Canta</span></a>
     <nav aria-label={t('Article navigation', 'Navegación del artículo')}>
       <a class="language" href={articlePath(lang === 'en' ? 'es' : 'en', article.id)} hreflang={lang === 'en' ? 'es' : 'en'}>{lang.toUpperCase()} / {lang === 'en' ? 'ES' : 'EN'}</a>
       <button class="saved-trigger">{t('My notebook', 'Mi cuaderno')} <span class="saved-count">0</span></button>
@@ -44,6 +45,6 @@ Astro.response.headers.set('Cache-Control', 'no-store');
     </article>
     <section class="related-stories wrap"><h2>{t('A little more to linger over.', 'Un poco más para disfrutar.')}</h2><div class="related-grid" set:html={related.map((a,i) => storyCard(a, lang, i + 1)).join('')} /></section>
   </main>
-  <footer class="reading-footer"><a href={`/${lang}/`}>El Sanctuario</a> · La Casa Que Canta · <a href={`/${lang}/#circle`}>{t('Stay connected', 'Sigamos cerca')}</a></footer>
+  <footer class="reading-footer"><a href={`/${lang}/`}>{brandName(lang)}</a> · La Casa Que Canta · <a href={`/${lang}/#circle`}>{t('Stay connected', 'Sigamos cerca')}</a></footer>
   <Fragment set:html={journalMarkup(content, lang, article.id)} />
 </Layout>

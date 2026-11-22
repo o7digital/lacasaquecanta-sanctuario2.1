@@ -8,6 +8,9 @@ test("server-rendered EN/ES articles have real URLs, translations and metadata w
   const page = await context.newPage();
   await page.goto("/es/");
   await expect(page.locator("html")).toHaveAttribute("lang", "es");
+  await expect(page.locator(".masthead h1")).toHaveText("El Santuario");
+  await expect(page.locator(".house-brand .brand-title")).toHaveText("El Santuario");
+  await expect(page).toHaveTitle(/^El Santuario —/);
   await expect(page.locator(".story-card").first().locator("h3")).toContainText(
     "El mar escribe",
   );
@@ -30,6 +33,13 @@ test("server-rendered EN/ES articles have real URLs, translations and metadata w
     /\/en\/stories\/chef\//,
   );
   await expect(page.locator(".sample-note")).toBeVisible();
+  await expect(page.locator(".reading-nav .brand-title")).toHaveText("El Santuario");
+  await expect(page.locator(".reader-meta")).toContainText("El Santuario");
+  await page.locator(".reading-nav .language").click();
+  await expect(page).toHaveURL(/\/en\/stories\/chef\//);
+  await expect(page.locator(".reading-nav .brand-title")).toHaveText("Sanctuary");
+  await expect(page.locator(".reader-meta")).toContainText("Sanctuary");
+  await expect(page).toHaveTitle(/— Sanctuary$/);
   await context.close();
 });
 
@@ -262,7 +272,7 @@ test("saved article remains readable offline and the service worker preserves un
   await expect(page.locator("h1")).toHaveText("The sea writes the first line.");
   await expect(page.locator("#offline-notice")).toBeVisible();
   await page.goto("/");
-  await expect(page.locator("h1")).toHaveText("El Sanctuario");
+  await expect(page.locator("h1")).toHaveText("Sanctuary");
   await page.locator(".header-actions .saved-trigger").click();
   await expect(page.locator("#notebook-content")).toContainText(
     "The sea writes the first line.",

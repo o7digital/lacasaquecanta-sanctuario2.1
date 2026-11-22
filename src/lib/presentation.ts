@@ -11,6 +11,7 @@ import {
 import { eventState, plusDays } from "./travel";
 import inspiration from "../data/inspiration.json";
 import { uvCardMarkup } from "./uv";
+import { brandName } from "./brand";
 
 export const escape = (s: string) =>
   s.replace(
@@ -53,6 +54,10 @@ export function journalMarkup(
     );
   });
   const t = (en: string, es: string) => (lang === "en" ? en : es);
+  $(".sanctuary-brand").attr(
+    "aria-label",
+    `${brandName(lang)} by La Casa Que Canta`,
+  );
   $(".house-brand").attr("href", `/${lang}/`);
   const hour = Number(
     new Intl.DateTimeFormat("en-US", {
@@ -302,7 +307,7 @@ export function journalMarkup(
     `<a href="/admin/">${t("Editorial studio", "Estudio editorial")}</a>`,
   );
   $(".footer-links").append(
-    `<a href="/${lang}/join/">El Sanctuario Circle</a><a href="/${lang}/account/">${t("My space", "Mi espacio")}</a>`,
+    `<a href="/${lang}/join/">${brandName(lang)} Circle</a><a href="/${lang}/account/">${t("My space", "Mi espacio")}</a>`,
   );
   $(".journal-nav").after(
     `<p id="offline-notice" class="offline-note wrap" role="status" hidden>${t("Offline edition. Weather is unavailable and event details may have changed. Last editorial update:", "Edición sin conexión. El clima no está disponible y los eventos pueden haber cambiado. Última actualización editorial:")} ${

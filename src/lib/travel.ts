@@ -63,7 +63,7 @@ export function calendar(event: JournalEvent, lang: Locale, now = new Date()) {
   const lines = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//El Sanctuario//Journal//EN",
+    "PRODID:-//Sanctuary//Journal//EN",
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
     "BEGIN:VEVENT",

@@ -9,6 +9,18 @@ import {
   type Content,
 } from "./schema";
 import { getPool } from "./db";
+import { localizeBrand } from "./brand";
+
+function parseContent(value: unknown): Content {
+  const content = contentSchema.parse(value);
+  for (const lang of ["en", "es"] as const) {
+    for (const article of content.articles)
+      article.author[lang] = localizeBrand(article.author[lang], lang);
+    for (const edition of content.editions)
+      edition.intro[lang] = localizeBrand(edition.intro[lang], lang);
+  }
+  return content;
+}
 
 let cached: { value: Content; expires: number } | undefined;
 let pending: Promise<Content> | undefined;
@@ -18,12 +30,12 @@ export async function getContent(): Promise<Content> {
       const { rows } = await getPool().query(
         "SELECT content FROM sc_editorial WHERE tenant_id='hotel'",
       );
-      if (rows.length) return contentSchema.parse(rows[0].content);
+      if (rows.length) return parseContent(rows[0].content);
     } catch {
       /* Bundled editorial copy remains readable during database outages. */
     }
   }
-  if (!process.env.VERCEL) return contentSchema.parse(seed);
+  if (!process.env.VERCEL) return parseContent(seed);
   if (cached && cached.expires > Date.now()) return cached.value;
   if (pending) return pending;
   pending = (async () => {
@@ -34,12 +46,12 @@ export async function getContent(): Promise<Content> {
         { signal: AbortSignal.timeout(5000), cache: "no-store" },
       );
       if (!r.ok) throw new Error("Content unavailable");
-      const value = contentSchema.parse(await r.json());
+      const value = parseContent(await r.json());
       cached = { value, expires: Date.now() + 60000 };
       return value;
     } catch {
       // Last known editorial edition; never fabricate fresh publication data.
-      const value = cached?.value ?? contentSchema.parse(seed);
+      const value = cached?.value ?? parseContent(seed);
       cached = { value, expires: Date.now() + 15000 };
       return value;
     } finally {

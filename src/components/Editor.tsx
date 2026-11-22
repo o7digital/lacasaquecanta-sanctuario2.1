@@ -13,6 +13,7 @@ import {
   type Locale,
 } from "../lib/schema";
 import { localDay, plusDays } from "../lib/travel";
+import { brandName } from "../lib/brand";
 
 type Props = { branch: string; server?: boolean };
 const emptyPair = () => ({ en: "", es: "" });
@@ -249,7 +250,7 @@ export default function Editor({ branch, server = false }: Props) {
       const result = await api(`/contents/${CONTENT_PATH}`, token, {
         method: "PUT",
         body: JSON.stringify({
-          message: "Update El Sanctuario editorial edition",
+          message: "Update Sanctuary editorial edition",
           branch,
           sha,
           content: encode(JSON.stringify(validation.data, null, 2) + "\n"),
@@ -343,7 +344,7 @@ export default function Editor({ branch, server = false }: Props) {
       await api(`/contents/${path}`, token, {
         method: "PUT",
         body: JSON.stringify({
-          message: "Add El Sanctuario editorial photograph",
+          message: "Add Sanctuary editorial photograph",
           branch,
           content: btoa(binary),
         }),
@@ -372,7 +373,7 @@ export default function Editor({ branch, server = false }: Props) {
     );
     const a = document.createElement("a");
     a.href = url;
-    a.download = "el-sanctuario-edition.json";
+    a.download = `${brandName(lang).toLowerCase().replaceAll(" ", "-")}-edition.json`;
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
@@ -397,7 +398,7 @@ export default function Editor({ branch, server = false }: Props) {
     <div className="editor">
       <header className="editor-header">
         <a className="mini-title" href={`/${lang}/`}>
-          El Sanctuario
+          {brandName(lang)}
         </a>
         <span>{t("Editorial studio", "Estudio editorial")}</span>
         <button onClick={() => setLang(lang === "en" ? "es" : "en")}>

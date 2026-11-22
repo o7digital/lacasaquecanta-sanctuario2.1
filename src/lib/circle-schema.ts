@@ -279,7 +279,7 @@ export const programSchema = z
   });
 export const defaultProgram = () =>
   programSchema.parse({
-    name: "El Sanctuario Circle",
+    name: "Sanctuary Circle",
     active: false,
     tiers: [],
     operations: [],
