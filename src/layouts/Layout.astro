@@ -2,6 +2,7 @@
 import '../styles/reference.css';
 import '../styles/app.css';
 import '../styles/v2.css';
+import '../styles/uv.css';
 import type { Content, Locale } from '../lib/schema';
 interface Props { lang: Locale; title?: string; description?: string; articleId?: string; content?: Content; noindex?: boolean; }
 const { lang, title = 'El Sanctuario — ' + (Astro.props.lang === 'es' ? 'Una revista viva de La Casa Que Canta' : 'A living journal by La Casa Que Canta'), description = lang === 'en' ? 'Stories, flavours and little rituals from La Casa Que Canta and Zihuatanejo.' : 'Historias, sabores y pequeños rituales de La Casa Que Canta y Zihuatanejo.', articleId, content, noindex = false } = Astro.props;

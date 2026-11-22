@@ -101,6 +101,10 @@ Le déploiement de livraison migre explicitement Neon avant compilation. La dém
 
 Aucun fournisseur PMS ou CRM n’a pu être identifié dans ce dépôt. Le lien SynXis n’accorde pas d’accès aux réservations. Mailchimp est un adaptateur conservé, pas la preuve d’un compte hôtelier connecté.
 
+### Indice UV
+
+La météo de l’accueil et de l’exploration comprend une carte UV avec indice arrondi, catégorie, jauge de couleur et courbe horaire. Le serveur demande `hourly=uv_index` à Open-Meteo pour Zihuatanejo et conserve les 24 heures de la date locale. La valeur affichée correspond au créneau horaire courant de prévision, avec son heure explicite ; Open-Meteo définit ce champ comme une moyenne de l’heure précédente. Le maximum et son heure proviennent de la même série complète. Les données absentes ou invalides ne deviennent pas un indice nul ; un vrai zéro nocturne reste valide. Une série incomplète conserve ses trous et ne produit pas un maximum supposé. Une prévision ancienne ou marquée périmée est affichée indisponible, sans masquer la température reçue. La carte indique l’échelle UV de l’OMS et la source météo existante.
+
 ### Séjours entrants
 
 `POST /api/integrations/stays` reste fermé sans `INBOUND_STAY_SECRET`, `INBOUND_STAY_ACTOR_ID` et `INBOUND_STAY_SOURCE`. Le compte de service doit appartenir au personnel de la maison. Envoyer le JSON défini par `HotelReservation` avec `x-sc-timestamp` (secondes Unix) et `x-sc-signature` : HMAC-SHA256 du texte `timestamp + "." + corps_JSON_exact`, en hexadécimal. La signature expire après cinq minutes.

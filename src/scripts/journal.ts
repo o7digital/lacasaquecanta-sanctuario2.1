@@ -1,3 +1,4 @@
+import { uvCardMarkup } from "../lib/uv";
 import inspiration from "../data/inspiration.json";
 import {
   articlePath,
@@ -843,6 +844,11 @@ function start({ lang, content }: { lang: Locale; content: Content }) {
       const data = await response.json(),
         c = data.current,
         d = data.daily;
+      if ($("#weather-uv"))
+        $("#weather-uv")!.innerHTML = uvCardMarkup(data.uv, lang, {
+          stale: Boolean(data.stale),
+          id: "uv-home",
+        });
       if (
         !Number.isFinite(c?.temperature_2m) ||
         (Date.parse(data.expiresAt) <= Date.now() && !data.stale)
@@ -897,6 +903,10 @@ function start({ lang, content }: { lang: Locale; content: Content }) {
         )
         .join("");
     } catch {
+      if ($("#weather-uv"))
+        $("#weather-uv")!.innerHTML = uvCardMarkup(null, lang, {
+          id: "uv-home",
+        });
       $("#weather-temp")!.textContent = "—";
       $("#weather-description")!.textContent = t(
         "Weather temporarily unavailable",
@@ -947,6 +957,12 @@ function start({ lang, content }: { lang: Locale; content: Content }) {
     void weather();
   });
   window.addEventListener("offline", connection);
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) {
+      clock();
+      void weather();
+    }
+  });
   connection();
   if ("serviceWorker" in navigator)
     window.addEventListener("load", () => {

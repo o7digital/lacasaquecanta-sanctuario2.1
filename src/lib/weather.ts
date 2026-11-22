@@ -1,3 +1,4 @@
+import { normalizeUv, type UvForecast } from "./uv";
 export interface Weather {
   current: {
     time: string;
@@ -15,6 +16,7 @@ export interface Weather {
   fetchedAt: string;
   expiresAt: string;
   stale?: boolean;
+  uv: UvForecast | null;
 }
 export function normalizeWeather(value: any, now = new Date()): Weather {
   const current = value?.current,
@@ -54,6 +56,7 @@ export function normalizeWeather(value: any, now = new Date()): Weather {
   return {
     current,
     daily,
+    uv: normalizeUv(value.hourly, value.utc_offset_seconds, now),
     fetchedAt: now.toISOString(),
     expiresAt: new Date(+now + 15 * 60000).toISOString(),
   };
@@ -76,6 +79,7 @@ export async function getWeather(): Promise<Weather> {
         longitude: "-101.55",
         current:
           "temperature_2m,apparent_temperature,weather_code,wind_speed_10m",
+        hourly: "uv_index",
         daily: "temperature_2m_max,temperature_2m_min,sunset",
         timezone: "America/Mexico_City",
         forecast_days: "5",

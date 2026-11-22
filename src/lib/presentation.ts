@@ -10,6 +10,7 @@ import {
 } from "./schema";
 import { eventState, plusDays } from "./travel";
 import inspiration from "../data/inspiration.json";
+import { uvCardMarkup } from "./uv";
 
 export const escape = (s: string) =>
   s.replace(
@@ -145,6 +146,10 @@ export function journalMarkup(
   $(".weather-details").append(
     `<div><span>${t("Low / high", "Mín. / máx.")}</span><strong id="weather-range">—</strong></div>`,
   );
+  $(".weather-details").after(
+    `<div id="weather-uv">${uvCardMarkup(null, lang, { loading: true, id: "uv-home" })}</div>`,
+  );
+  $(".weather-note").remove();
   $(".weather-top").append(
     `<label class="unit-select"><span class="sr-only">${t("Temperature unit", "Unidad de temperatura")}</span><select id="weather-unit"><option value="C">°C</option><option value="F">°F</option></select></label>`,
   );

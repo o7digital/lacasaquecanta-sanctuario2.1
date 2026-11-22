@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import UvIndex from "./UvIndex";
 export default function Weather({ lang }: { lang: string }) {
   const t = (en: string, es: string) => (lang === "en" ? en : es);
   const [data, setData] = useState<any>(),
@@ -25,6 +26,11 @@ export default function Weather({ lang }: { lang: string }) {
     };
     void load();
     const timer = setInterval(load, 15 * 60000);
+    const refreshVisible = () => {
+      if (!document.hidden) void load();
+    };
+    document.addEventListener("visibilitychange", refreshVisible);
+    window.addEventListener("online", refreshVisible);
     const tick = () =>
       setClock(
         new Intl.DateTimeFormat(lang === "en" ? "en-US" : "es-MX", {
@@ -39,6 +45,8 @@ export default function Weather({ lang }: { lang: string }) {
       active = false;
       clearInterval(timer);
       clearInterval(c);
+      document.removeEventListener("visibilitychange", refreshVisible);
+      window.removeEventListener("online", refreshVisible);
     };
   }, [lang]);
   const temp = (n: number) =>
@@ -116,6 +124,12 @@ export default function Weather({ lang }: { lang: string }) {
           </a>
         </p>
       </div>
+      <UvIndex
+        uv={data?.uv}
+        lang={lang}
+        stale={Boolean(data?.stale) || error}
+        loading={!data && !error}
+      />
     </section>
   );
 }

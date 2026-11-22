@@ -8,6 +8,7 @@ Branche dédiée : `codex/el-sanctuario-v2`. Projet Vercel conservé : `olivier-
 - Univers Weddings et Special Moments avec articles complets et demandes suivies, contact autorisé pour une surprise et conservation du texte en cas d’erreur.
 - Exploration hôtel/baie, plongée, pêche, yoga, gastronomie, spa, culture et événements ; filtres et vues liste/agenda. Les propositions sans prestataire ou créneau confirmé restent « sur demande ».
 - Météo réelle, heure de Zihuatanejo, °C/°F, ressenti, min/max et fraîcheur. Une donnée ancienne conservée après une panne est explicitement datée ; aucune température n’est inventée.
+- Indice UV prévu heure par heure, catégorie, jauge colorée et courbe de la journée sur l’accueil et l’exploration EN/ES. L’heure de prévision et le maximum journalier sont distincts ; zéro nocturne, données manquantes et prévisions périmées sont vérifiés.
 - Comptes vérifiés et récupération d’accès avec Better Auth ; préférences privées et choix de partage des allergies, versionnement des mises à jour, carnet en PostgreSQL et import explicite du carnet de l’appareil sans doublons.
 - Séjours passés, prochains séjours et projets de retour distincts ; import contrôlé par la réception, sans dépendre d’un accès PMS supposé.
 - Demandes identifiées, états réels, réponses dans le même dossier et historique. Une confirmation exige une référence réelle.
