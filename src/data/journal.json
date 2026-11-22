@@ -1,0 +1,321 @@
+{
+  "version": 1,
+  "articles": [
+    {
+      "id": "chef",
+      "category": "chef",
+      "status": "sample",
+      "featured": true,
+      "author": {
+        "en": "El Sanctuario · editorial sample",
+        "es": "El Sanctuario · muestra editorial"
+      },
+      "date": "2026-11-20",
+      "updatedAt": "2026-11-22",
+      "image": {
+        "src": "/assets/chef-hands.jpg",
+        "alt": {
+          "en": "The sea writes the first line.",
+          "es": "El mar escribe la primera línea."
+        },
+        "credit": "La Casa Que Canta",
+        "source": "https://www.lacasaquecanta.com/mar-y-cielo"
+      },
+      "source": "https://www.lacasaquecanta.com/mar-y-cielo",
+      "locales": {
+        "en": {
+          "title": "The sea writes the first line.",
+          "intro": "From the morning’s inspiration to the last touch on a plate. A letter from the heart of the kitchen.",
+          "body": "A proposed first edition of The Chef’s Letter. This is an editorial sample for the hotel and chef to review; it is not an actual statement from the chef or an official hotel recipe.\n\nBefore a dish reaches your table, it begins with a question: what do we want you to remember?\n\nPerhaps it is the brightness of a lime. Perhaps the first taste of something unfamiliar, or the way a quiet dinner seems to stretch an entire evening. The pleasure of a meal is made of these small things.\n\nAt Mar y Cielo, Mexican culinary traditions meet Mediterranean inspiration, with seafood at the centre of the story. For this first proposed letter, we begin there: with the coast, with the ingredients, and with the care behind a plate.\n\n### A monthly seat at the kitchen table\n\nEach letter would follow one ingredient, one gesture and one memory. A conversation with the chef about choosing a product. A look at the preparation that guests rarely see. And, finally, a simple idea to take home.\n\n> “The best souvenir might be a flavour you learn to make your own.”\n\n### For your table: avocado, lime & herbs\n\nThis simple editorial recipe is a starting point for a lunch that feels a little closer to the coast. It is not a recipe from the hotel’s menu.\n\n*   1 ripe avocado\n*   Juice of ½ lime, then more to taste\n*   2 tablespoons olive oil\n*   2 tablespoons water\n*   A small handful of fresh coriander and a pinch of salt\n\n1.  Blend the avocado, lime, oil, water and salt until smooth.\n2.  Fold in the chopped coriander. Adjust with a little more lime or water.\n3.  Spoon over roasted vegetables, a crisp salad or freshly cooked fish. Make it just before serving.\n\n### And when you come back…\n\nLeave a little room in your plans for a long dinner. Tell the hotel what you love to eat, ask what is in season, and let your next chapter begin at the table."
+        },
+        "es": {
+          "title": "El mar escribe la primera línea.",
+          "intro": "De la inspiración de la mañana al último toque de un plato. Una carta desde el corazón de la cocina.",
+          "body": "Propuesta de primera edición de La carta del chef. Es una muestra editorial para revisión del hotel y del chef; no es una declaración real del chef ni una receta oficial del hotel.\n\nAntes de que un plato llegue a tu mesa, comienza con una pregunta: ¿qué nos gustaría que recordaras?\n\nQuizás la frescura de un limón. Quizás el primer bocado de algo nuevo, o esa manera en que una cena tranquila parece alargar toda la noche. El placer de comer también vive en esas pequeñas cosas.\n\nEn Mar y Cielo, la tradición mexicana se encuentra con la inspiración mediterránea, con los productos del mar en el centro de la historia. Esta primera carta propuesta comienza ahí: en la costa, en los ingredientes y en el cuidado detrás de un plato.\n\n### Una cita mensual con la cocina\n\nCada carta seguiría un ingrediente, un gesto y un recuerdo. Una conversación con el chef sobre cómo elige un producto. Una mirada a la preparación que los huéspedes pocas veces ven. Y una idea sencilla para llevar a casa.\n\n> «El mejor recuerdo podría ser un sabor que aprendes a hacer tuyo».\n\n### Para tu mesa: aguacate, limón y hierbas\n\nEsta sencilla receta editorial es un punto de partida para un almuerzo que te acerque a la costa. No es una receta de la carta del hotel.\n\n*   1 aguacate maduro\n*   El jugo de ½ limón, y un poco más al gusto\n*   2 cucharadas de aceite de oliva\n*   2 cucharadas de agua\n*   Un puñado pequeño de cilantro y una pizca de sal\n\n1.  Licúa el aguacate, el limón, el aceite, el agua y la sal hasta lograr una textura suave.\n2.  Incorpora el cilantro picado. Ajusta con un poco más de limón o agua.\n3.  Acompaña verduras asadas, una ensalada fresca o pescado recién cocinado. Prepárala justo antes de servir.\n\n### Y cuando regreses…\n\nDeja espacio en tus planes para una cena larga. Cuéntale al hotel qué te gusta comer, pregunta qué hay de temporada y deja que tu siguiente capítulo empiece en la mesa."
+        }
+      }
+    },
+    {
+      "id": "slow",
+      "category": "ritual",
+      "status": "sample",
+      "featured": false,
+      "author": {
+        "en": "El Sanctuario · editorial sample",
+        "es": "El Sanctuario · muestra editorial"
+      },
+      "date": "2026-11-20",
+      "updatedAt": "2026-11-22",
+      "image": {
+        "src": "/assets/pool.jpg",
+        "alt": {
+          "en": "The luxury of an empty afternoon.",
+          "es": "El lujo de una tarde sin planes."
+        },
+        "credit": "La Casa Que Canta",
+        "source": "https://www.lacasaquecanta.com"
+      },
+      "source": "https://www.lacasaquecanta.com",
+      "locales": {
+        "en": {
+          "title": "The luxury of an empty afternoon.",
+          "intro": "A pool, a horizon, and absolutely nowhere else to be.",
+          "body": "There is a particular kind of pleasure in looking at the time and deciding it does not matter.\n\nYou have made the journey. Your bag is unpacked. The water is there, exactly as you hoped it would be. Now comes the part that can be surprisingly difficult: letting your day remain unwritten.\n\n### Make room for nothing\n\nLeave the afternoon open. Bring a book you might not finish. Choose a place by the pool and notice how the light changes, how a conversation fades into the sound of the bay, how a small pause can become the best part of your day.\n\nIn the photographs of La Casa Que Canta, pools and terraces meet the sea in different ways. Some views invite you to look out. Others invite you to stay still. Give yourself time to find the one that feels like yours.\n\n> A full day does not always need a full itinerary.\n\n### A note for your next visit\n\nKeep one afternoon free. If you are planning treatments or outings, ask the hotel to help you leave space between them. Anticipation is lovely. So is the freedom to change your mind."
+        },
+        "es": {
+          "title": "El lujo de una tarde sin planes.",
+          "intro": "Una alberca, un horizonte y ningún otro lugar al que llegar.",
+          "body": "Hay un placer muy particular en mirar la hora y decidir que no importa.\n\nEl viaje ya quedó atrás. Tu maleta está abierta. El agua está ahí, tal como la imaginabas. Ahora llega una parte que a veces cuesta más de lo esperado: dejar que el día siga en blanco.\n\n### Hacer espacio para no hacer nada\n\nDeja la tarde libre. Lleva un libro que quizá no termines. Encuentra un rincón junto a la alberca y observa cómo cambia la luz, cómo una conversación se mezcla con el sonido de la bahía, cómo una pequeña pausa puede convertirse en lo mejor del día.\n\nEn las imágenes de La Casa Que Canta, las albercas y terrazas se encuentran con el mar de distintas formas. Algunas vistas invitan a mirar lejos. Otras, a quedarse quieto. Date tiempo para encontrar la tuya.\n\n> Un día pleno no siempre necesita una agenda llena.\n\n### Para tu próxima visita\n\nGuarda una tarde sin planes. Si quieres organizar tratamientos o paseos, pide al hotel que te ayude a dejar espacio entre ellos. La ilusión de planear es hermosa. La libertad de cambiar de idea también."
+        }
+      }
+    },
+    {
+      "id": "breakfast",
+      "category": "taste",
+      "status": "sample",
+      "featured": false,
+      "author": {
+        "en": "El Sanctuario · editorial sample",
+        "es": "El Sanctuario · muestra editorial"
+      },
+      "date": "2026-11-20",
+      "updatedAt": "2026-11-22",
+      "image": {
+        "src": "/assets/dining.jpg",
+        "alt": {
+          "en": "Let breakfast take its time.",
+          "es": "Que el desayuno dure un poco más."
+        },
+        "credit": "La Casa Que Canta",
+        "source": "https://www.lacasaquecanta.com/mar-y-cielo"
+      },
+      "source": "https://www.lacasaquecanta.com/mar-y-cielo",
+      "locales": {
+        "en": {
+          "title": "Let breakfast take its time.",
+          "intro": "The first ritual of a day that belongs entirely to you.",
+          "body": "Before the first plan, there is the first cup.\n\nA good breakfast on holiday asks very little of you. Sit down. Look up. Notice the sea before reaching for your phone. There is no need to decide what the whole day will become.\n\n### The table is part of the view\n\nIn the hotel’s own photographs, breakfast shares the frame with the bay. That simple composition says something about the experience we want this journal to celebrate: food, place and the freedom to enjoy both.\n\nOrder what sounds good today. Try something you would not make on a busy morning at home. If you are coming back with someone, make a small tradition of it: the same first coffee, a different conversation.\n\n### Keep the ritual\n\nYou can take this part of the coast home. One morning each week, set the table properly. Put the phone away. Give breakfast a little more time than it needs."
+        },
+        "es": {
+          "title": "Que el desayuno dure un poco más.",
+          "intro": "El primer ritual de un día que te pertenece.",
+          "body": "Antes del primer plan, está la primera taza.\n\nUn buen desayuno de vacaciones pide muy poco. Siéntate. Levanta la mirada. Mira el mar antes de buscar el teléfono. No hace falta decidir todavía en qué se convertirá el día.\n\n### La mesa también es parte de la vista\n\nEn las fotografías del hotel, el desayuno comparte espacio con la bahía. Esa composición tan sencilla dice mucho de la experiencia que queremos celebrar: la comida, el lugar y la libertad de disfrutar ambos.\n\nPide lo que hoy se te antoje. Prueba algo que no prepararías una mañana con prisa. Si vuelves acompañado, conviértelo en una pequeña tradición: el mismo primer café, una conversación distinta.\n\n### Llévate el ritual\n\nTambién puedes llevar esta parte de la costa a casa. Una mañana a la semana, prepara bien la mesa. Guarda el teléfono. Dale al desayuno un poco más del tiempo que necesita."
+        }
+      }
+    },
+    {
+      "id": "spa",
+      "category": "ritual",
+      "status": "sample",
+      "featured": false,
+      "author": {
+        "en": "El Sanctuario · editorial sample",
+        "es": "El Sanctuario · muestra editorial"
+      },
+      "date": "2026-11-20",
+      "updatedAt": "2026-11-22",
+      "image": {
+        "src": "/assets/spa.jpg",
+        "alt": {
+          "en": "A quieter kind of ritual.",
+          "es": "Un ritual más tranquilo."
+        },
+        "credit": "La Casa Que Canta",
+        "source": "https://www.lacasaquecanta.com/activities/spa"
+      },
+      "source": "https://www.lacasaquecanta.com/activities/spa",
+      "locales": {
+        "en": {
+          "title": "A quieter kind of ritual.",
+          "intro": "A moment for yourself at Spa by Clarins.",
+          "body": "Rest can be something you choose, and something you make room for.\n\nSpa by Clarins is part of life at La Casa Que Canta. For this chapter of your stay, the invitation is simple: step away from the day’s plans and give yourself a quieter moment.\n\n### Before your visit\n\nBrowse the hotel’s current treatment menu and ask the team to help you choose. Share your preferences with them, including the kind of experience and pressure you enjoy. Treatment availability is confirmed directly by the spa.\n\nThe hotel lists spa hours of 10:00–18:00 daily. For same-day arrangements, contact the front desk; confirm current hours and appointment availability when you book.\n\n### Afterwards, leave a little space\n\nA quiet terrace, a glass of water, an unhurried walk back to your room. Resist the temptation to place another appointment immediately after this one."
+        },
+        "es": {
+          "title": "Un ritual más tranquilo.",
+          "intro": "Un momento para ti en Spa by Clarins.",
+          "body": "Descansar también puede ser algo que eliges y a lo que haces espacio.\n\nSpa by Clarins forma parte de La Casa Que Canta. Para este capítulo de tu estancia, la invitación es sencilla: alejarte un momento de los planes y regalarte una pausa.\n\n### Antes de tu visita\n\nConsulta la carta vigente de tratamientos y pide al equipo que te ayude a elegir. Comparte tus preferencias, incluyendo el tipo de experiencia y presión que disfrutas. La disponibilidad se confirma directamente con el spa.\n\nEl hotel publica un horario de 10:00 a 18:00 todos los días. Para citas del mismo día, contacta a recepción; confirma horarios y disponibilidad al reservar.\n\n### Después, deja un poco de espacio\n\nUna terraza tranquila, un vaso de agua, un regreso sin prisa a tu habitación. Resiste la tentación de programar otra actividad inmediatamente después."
+        }
+      }
+    },
+    {
+      "id": "house",
+      "category": "hotel",
+      "status": "sample",
+      "featured": false,
+      "author": {
+        "en": "El Sanctuario · editorial sample",
+        "es": "El Sanctuario · muestra editorial"
+      },
+      "date": "2026-11-20",
+      "updatedAt": "2026-11-22",
+      "image": {
+        "src": "/assets/architecture.jpg",
+        "alt": {
+          "en": "A house that speaks in textures.",
+          "es": "Una casa que habla en texturas."
+        },
+        "credit": "La Casa Que Canta",
+        "source": "https://www.lacasaquecanta.com"
+      },
+      "source": "https://www.lacasaquecanta.com",
+      "locales": {
+        "en": {
+          "title": "A house that speaks in textures.",
+          "intro": "Wood, warm earth and the small details you remember.",
+          "body": "A place becomes familiar through details long before we learn our way around it.\n\nLook closely at the house: the wood overhead, the warmth of the walls, the way a doorway frames a patch of blue. In the hotel’s photographs, these details make the architecture feel deeply connected to its setting.\n\n### A different way to explore\n\nOn your next visit, take a few minutes to look without photographing. Notice which materials invite you to touch them. Find the place where the light falls most beautifully in the morning. Return to the same spot later and see what has changed.\n\n> Sometimes, the smallest detail is the one that brings a whole journey back.\n\n### Your own collection\n\nA colour, a shadow, a view through an open door. Start a small collection of the details that feel like La Casa Que Canta to you. This journal is a place to begin that conversation."
+        },
+        "es": {
+          "title": "Una casa que habla en texturas.",
+          "intro": "Madera, tonos tierra y esos pequeños detalles que recuerdas.",
+          "body": "Un lugar empieza a sentirse familiar a través de sus detalles, incluso antes de saber recorrerlo.\n\nMira la casa de cerca: la madera del techo, la calidez de los muros, la forma en que una puerta enmarca un pedazo de azul. En las fotografías del hotel, esos detalles conectan la arquitectura con su entorno.\n\n### Otra forma de explorar\n\nEn tu próxima visita, dedica unos minutos a mirar sin fotografiar. Observa qué materiales te invitan a tocarlos. Encuentra el rincón donde cae la luz por la mañana. Regresa más tarde y descubre qué ha cambiado.\n\n> A veces el detalle más pequeño es el que trae de vuelta un viaje entero.\n\n### Tu propia colección\n\nUn color, una sombra, una vista a través de una puerta abierta. Empieza una pequeña colección de los detalles que para ti significan La Casa Que Canta. Esta revista es un lugar para comenzar esa conversación."
+        }
+      }
+    },
+    {
+      "id": "ensueno",
+      "category": "hideaway",
+      "status": "sample",
+      "featured": false,
+      "author": {
+        "en": "El Sanctuario · editorial sample",
+        "es": "El Sanctuario · muestra editorial"
+      },
+      "date": "2026-11-20",
+      "updatedAt": "2026-11-22",
+      "image": {
+        "src": "/assets/ensueno.jpg",
+        "alt": {
+          "en": "A little closer to the sand.",
+          "es": "Un poco más cerca de la arena."
+        },
+        "credit": "La Casa Que Canta",
+        "source": "https://www.el-ensueno.com"
+      },
+      "source": "https://www.el-ensueno.com",
+      "locales": {
+        "en": {
+          "title": "A little closer to the sand.",
+          "intro": "El Ensueño, and the pleasure of staying in your own rhythm.",
+          "body": "Some journeys call for a place that feels entirely your own.\n\nEl Ensueño is a four-suite luxury villa on Playa La Ropa. A palapa lounge, an infinity pool, private chef and butler service are part of its coastal setting.\n\n### A house for shared moments\n\nThink of the spaces between plans: breakfast together, an afternoon when everyone finds their own corner, a conversation that lasts well past dinner. A villa changes the shape of a journey by giving those moments somewhere to happen.\n\n### Imagine your stay\n\nTell the reservations team who you are travelling with and what you would love to do. Ask about the available suites, meal arrangements and preferred dates. The hotel will confirm the details of your stay."
+        },
+        "es": {
+          "title": "Un poco más cerca de la arena.",
+          "intro": "El Ensueño y el placer de seguir tu propio ritmo.",
+          "body": "Hay viajes que piden un lugar que se sienta completamente tuyo.\n\nEl Ensueño es una villa de lujo de cuatro suites en Playa La Ropa. Su entorno incluye una palapa, una alberca infinity, chef privado y servicio de mayordomo.\n\n### Una casa para compartir momentos\n\nPiensa en los espacios entre los planes: desayunar juntos, una tarde en la que cada quien encuentra su rincón, una conversación que sigue mucho después de la cena. Una villa cambia el ritmo del viaje al darle un lugar a esos momentos.\n\n### Imagina tu estancia\n\nCuéntale al equipo de reservaciones con quién viajas y qué te gustaría hacer. Pregunta por las suites, los planes de alimentos y tus fechas preferidas. El hotel confirmará los detalles."
+        }
+      }
+    },
+    {
+      "id": "murmullo",
+      "category": "hideaway",
+      "status": "sample",
+      "featured": false,
+      "author": {
+        "en": "El Sanctuario · editorial sample",
+        "es": "El Sanctuario · muestra editorial"
+      },
+      "date": "2026-11-20",
+      "updatedAt": "2026-11-22",
+      "image": {
+        "src": "/assets/murmullo.jpg",
+        "alt": {
+          "en": "Above the bay, a world of your own.",
+          "es": "Sobre la bahía, un mundo propio."
+        },
+        "credit": "La Casa Que Canta",
+        "source": "https://www.el-murmullo.com"
+      },
+      "source": "https://www.el-murmullo.com",
+      "locales": {
+        "en": {
+          "title": "Above the bay, a world of your own.",
+          "intro": "The private terraces and open horizon of El Murmullo.",
+          "body": "The view is part of the invitation. The privacy is part of the pleasure.\n\nEl Murmullo overlooks Zihuatanejo Bay. Its ocean-facing terraces and Mexican coastal character create a different perspective on the same beloved destination.\n\n### The art of staying in\n\nThere are days when the best plan is simply to enjoy where you are. A long read. A shared lunch. Watching a boat move across the view. In a private retreat, these can become the defining moments of a trip.\n\n### Plan your own chapter\n\nExplore the official villa website, then share your dates and wishes with the reservations team. They can guide you through accommodation options, meals and arrangements for your visit."
+        },
+        "es": {
+          "title": "Sobre la bahía, un mundo propio.",
+          "intro": "Las terrazas privadas y el horizonte abierto de El Murmullo.",
+          "body": "La vista es parte de la invitación. La privacidad, parte del placer.\n\nEl Murmullo domina la bahía de Zihuatanejo. Sus terrazas frente al mar y su carácter costero mexicano ofrecen otra perspectiva del mismo destino querido.\n\n### El arte de quedarse\n\nHay días en los que el mejor plan es disfrutar el lugar donde estás. Leer sin prisa. Compartir la comida. Seguir un barco con la mirada. En un refugio privado, esos momentos pueden definir todo un viaje.\n\n### Planea tu propio capítulo\n\nExplora el sitio oficial de la villa y comparte tus fechas y deseos con reservaciones. El equipo puede orientarte sobre alojamiento, alimentos y los detalles de tu visita."
+        }
+      }
+    },
+    {
+      "id": "avocado-lime",
+      "category": "recipe",
+      "status": "sample",
+      "featured": false,
+      "author": {
+        "en": "El Sanctuario · editorial sample",
+        "es": "El Sanctuario · muestra editorial"
+      },
+      "date": "2026-11-20",
+      "updatedAt": "2026-11-22",
+      "image": {
+        "src": "/assets/ingredients.jpg",
+        "alt": {
+          "en": "The sea writes the first line.",
+          "es": "El mar escribe la primera línea."
+        },
+        "credit": "La Casa Que Canta",
+        "source": "https://www.lacasaquecanta.com/mar-y-cielo"
+      },
+      "source": "https://www.lacasaquecanta.com/mar-y-cielo",
+      "locales": {
+        "en": {
+          "title": "A little taste of the coast.",
+          "intro": "Avocado, lime and herbs: an editorial recipe to keep for a quiet lunch.",
+          "body": "**Editorial recipe for review. This is not an official hotel recipe.**\n\n\n\nThis simple editorial recipe is a starting point for a lunch that feels a little closer to the coast. It is not a recipe from the hotel’s menu.\n\n*   1 ripe avocado\n*   Juice of ½ lime, then more to taste\n*   2 tablespoons olive oil\n*   2 tablespoons water\n*   A small handful of fresh coriander and a pinch of salt\n\n1.  Blend the avocado, lime, oil, water and salt until smooth.\n2.  Fold in the chopped coriander. Adjust with a little more lime or water.\n3.  Spoon over roasted vegetables, a crisp salad or freshly cooked fish. Make it just before serving.\n\n"
+        },
+        "es": {
+          "title": "Un pequeño sabor de la costa.",
+          "intro": "Aguacate, limón y hierbas: una receta editorial para guardar y disfrutar sin prisa.",
+          "body": "**Receta editorial para revisión. No es una receta oficial del hotel.**\n\n\n\nEsta sencilla receta editorial es un punto de partida para un almuerzo que te acerque a la costa. No es una receta de la carta del hotel.\n\n*   1 aguacate maduro\n*   El jugo de ½ limón, y un poco más al gusto\n*   2 cucharadas de aceite de oliva\n*   2 cucharadas de agua\n*   Un puñado pequeño de cilantro y una pizca de sal\n\n1.  Licúa el aguacate, el limón, el aceite, el agua y la sal hasta lograr una textura suave.\n2.  Incorpora el cilantro picado. Ajusta con un poco más de limón o agua.\n3.  Acompaña verduras asadas, una ensalada fresca o pescado recién cocinado. Prepárala justo antes de servir.\n\n"
+        }
+      }
+    }
+  ],
+  "events": [
+    {
+      "id": "guitar",
+      "title": {
+        "en": "Zihuatanejo International Guitar Festival",
+        "es": "Festival Internacional de Guitarra de Zihuatanejo"
+      },
+      "description": {
+        "en": "A week of guitar music around the bay. Check the final programme with the organizer before arranging travel.",
+        "es": "Una semana de música de guitarra junto a la bahía. Confirma el programa final con el organizador antes de viajar."
+      },
+      "location": {
+        "en": "Zihuatanejo, Guerrero, Mexico",
+        "es": "Zihuatanejo, Guerrero, México"
+      },
+      "start": "2027-03-06",
+      "end": "2027-03-14",
+      "status": "scheduled",
+      "source": "https://www.zihuafest.com/",
+      "verifiedAt": "2026-11-22",
+      "category": "music"
+    },
+    {
+      "id": "sail",
+      "title": {
+        "en": "Por Los Niños Sailfest",
+        "es": "Por Los Niños Sailfest"
+      },
+      "description": {
+        "en": "Sailing, music and community events supporting children’s education. Organized by Por Los Niños; confirm individual activities with the organizer.",
+        "es": "Vela, música y encuentros comunitarios en apoyo a la educación. Organiza Por Los Niños; confirma cada actividad con el organizador."
+      },
+      "location": {
+        "en": "Zihuatanejo, Guerrero, Mexico",
+        "es": "Zihuatanejo, Guerrero, México"
+      },
+      "start": "2027-02-14",
+      "end": "2027-02-28",
+      "status": "scheduled",
+      "source": "https://www.zihuatanejo-sailfest.com/copy-of-home-1",
+      "verifiedAt": "2026-11-22",
+      "category": "community"
+    }
+  ]
+}

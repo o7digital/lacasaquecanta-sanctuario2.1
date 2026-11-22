@@ -1,5 +1,39 @@
 # El Sanctuario — La Casa Que Canta
 
+## Version développée — 22 novembre 2026
+
+Revue web Astro + React + TypeScript issue des sources de `dist/`, avec la direction visuelle, les photographies et La lettre du chef conservées.
+
+- Aperçu anglais : https://el-sanctuario-21.vercel.app/en/
+- Aperçu espagnol : https://el-sanctuario-21.vercel.app/es/
+- Studio éditorial : https://el-sanctuario-21.vercel.app/admin/
+- Dépôt : `o7digital/lacasaquecanta-sanctuario2.1`, branche `codex/el-sanctuario`.
+- Projet Vercel séparé : `olivier-steineur/el-sanctuario-21`. Le site hôtelier actuel n'est pas remplacé.
+- Newsletter : raccordement préparé, activation en attente de validation à la demande d'Olivier.
+
+Node.js 24 LTS et npm :
+
+```sh
+npm ci
+npm run dev
+```
+
+Ouvrir l'URL annoncée par Astro dans Firefox, normalement `http://127.0.0.1:4321/en/`.
+
+```sh
+npm run check
+npm test
+npm run test:e2e
+npm run build
+```
+
+Consulter **[DEVELOPMENT.md](DEVELOPMENT.md)** pour l'administration, les variables, les intégrations, les limites et les commandes de déploiement. Les tests navigateur utilisent Firefox (`npx playwright install firefox` si nécessaire).
+
+`dist/` et `El_Sanctuario.html` restent inchangés comme références reçues ; l'application actuelle est dans `src/`, `public/`, et sa compilation dans `build/`. Les empreintes `SHA256SUMS.txt` décrivent le paquet initial, avant l'évolution de la documentation.
+
+<details>
+<summary>Documentation historique du ZIP reçu</summary>
+
 Code de la nouvelle maquette éditoriale, avec photographies, polices, contenus anglais/espagnol et instructions de reprise dans Codex.
 
 ## Commencer
@@ -50,3 +84,5 @@ Les fichiers de `dist/` sont servis à la racine d'un hébergement statique. Pou
 Ce paquet est indépendant de l'aperçu ChatGPT Sites : aucun identifiant de projet, jeton, configuration d'accès ou historique Git privé n'est inclus. Ne pas remplacer le site hôtelier existant avec cette maquette.
 
 La publication sur GitHub ou Vercel n'est pas effectuée par la création de ce ZIP. Les instructions décrivent la reprise à réaliser dans Codex.
+
+</details>

@@ -5,3 +5,13 @@ node_modules/
 .vercel/
 .openai/
 .DS_Store
+
+.astro/
+build/
+artifacts/
+test-results/
+playwright-report/
+.vercel
+.env*
+
+!.env.example

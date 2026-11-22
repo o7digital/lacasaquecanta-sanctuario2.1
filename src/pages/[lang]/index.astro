@@ -1,0 +1,10 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getContent, publicContent } from '../../lib/content';
+import { journalMarkup } from '../../lib/presentation';
+const lang = Astro.params.lang;
+if (lang !== 'en' && lang !== 'es') return new Response('Not found', { status: 404 });
+const content = publicContent(await getContent());
+Astro.response.headers.set('Cache-Control', 'no-store');
+---
+<Layout lang={lang} content={content}><Fragment set:html={journalMarkup(content, lang)} /></Layout>

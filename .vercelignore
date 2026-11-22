@@ -1,0 +1,9 @@
+node_modules
+.git
+.env*
+dist
+El_Sanctuario.html
+artifacts
+test-results
+playwright-report
+tests

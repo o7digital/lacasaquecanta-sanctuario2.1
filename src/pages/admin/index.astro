@@ -1,0 +1,8 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Editor from '../../components/Editor';
+import '../../styles/editor.css';
+import { EDITORIAL_BRANCH } from '../../lib/schema';
+Astro.response.headers.set('Cache-Control', 'no-store');
+---
+<Layout lang="en" title="Editorial studio — El Sanctuario" noindex><Editor branch={process.env.CONTENT_BRANCH || EDITORIAL_BRANCH} client:only="react" /></Layout>

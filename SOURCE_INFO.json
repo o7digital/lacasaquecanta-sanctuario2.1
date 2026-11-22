@@ -4,8 +4,19 @@
   "source_commit": "1cbef83f99170befd1979f961967e87e3f70bfab",
   "source_type": "HTML / CSS / JavaScript static interactive prototype",
   "source_preserved": true,
-  "framework_migration_completed": false,
+  "framework_migration_completed": true,
   "backend_integrations_completed": false,
   "event_dates_last_verified": "2026-11-20",
-  "export_notes": "Source dist/ preserved byte-for-byte. Added portable HTML, French handoff instructions, asset notices and font licenses. Private hosting configuration, Git metadata and credentials excluded."
+  "export_notes": "Source dist/ preserved byte-for-byte. Added portable HTML, French handoff instructions, asset notices and font licenses. Private hosting configuration, Git metadata and credentials excluded.",
+  "development": {
+    "branch": "codex/el-sanctuario",
+    "import_commit": "7308f34",
+    "framework": "Astro + React + TypeScript",
+    "reference_preserved": [
+      "dist/",
+      "El_Sanctuario.html"
+    ],
+    "newsletter": "awaiting hotel validation per user instruction",
+    "hosting_project": "el-sanctuario-21"
+  }
 }

@@ -1,0 +1,43 @@
+{
+  "name": "el-sanctuario-21",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro build",
+    "preview": "astro preview --host 127.0.0.1",
+    "check": "astro check",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@astrojs/react": "^7.1.9",
+    "@astrojs/vercel": "^11.0.22",
+    "astro": "^7.4.13",
+    "dompurify": "^3.3.0",
+    "marked": "^17.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "sanitize-html": "^2.17.0",
+    "zod": "^4.1.12",
+    "cheerio": "1.1.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.5",
+    "@playwright/test": "^1.56.1",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@types/sanitize-html": "^2.16.0",
+    "sharp": "^0.35.5",
+    "turndown": "^7.2.2",
+    "typescript": "^5.9.3",
+    "tsx": "4.20.6"
+  },
+  "overrides": {
+    "path-to-regexp": "^6.3.0"
+  }
+}
