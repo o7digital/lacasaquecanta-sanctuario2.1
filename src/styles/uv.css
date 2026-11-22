@@ -154,6 +154,63 @@
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+.uv-explanation {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid #b6c3b488;
+}
+.uv-card .uv-meaning,
+.uv-card .uv-protection {
+  margin: 0;
+  font: 400 14px/1.6 var(--sans);
+}
+.uv-examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 12px 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+.uv-examples span {
+  padding: 5px 11px;
+  border-radius: 6px;
+}
+.uv-example-low {
+  background: #28950014;
+  border: 1px solid #28950040;
+}
+.uv-example-high {
+  background: #f889201a;
+  border: 1px solid #f8892055;
+}
+.uv-guide summary {
+  cursor: pointer;
+  padding: 5px 0;
+  font: 500 14px/1.5 var(--sans);
+}
+.uv-guide summary:focus-visible {
+  outline: 2px solid #915b3a;
+  outline-offset: 4px;
+}
+.uv-category-guide {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+.uv-category-guide > div {
+  padding: 7px 10px;
+  border-left: 3px solid var(--uv-band);
+  background: #ffffff55;
+  font: 400 14px/1.5 var(--sans);
+}
+.uv-category-guide dt {
+  font-weight: 600;
+}
+.uv-category-guide dd {
+  margin: 0;
+}
 .today-uv {
   grid-column: 1 / -1;
   min-width: 0;

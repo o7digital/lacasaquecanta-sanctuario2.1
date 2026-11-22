@@ -24,6 +24,18 @@ test("UV card shows its spectrum, hourly curve and local forecast time on the jo
     await expect(card.locator("[data-uv-chart]")).toBeVisible();
     await expect(card).toContainText("12:00");
     await expect(card).toContainText("14:00");
+    await expect(card.locator(".uv-examples")).toContainText(
+      path === "/en/" ? "2 = Low" : "2 = Bajo",
+    );
+    await expect(card.locator(".uv-examples")).toContainText(
+      path === "/en/" ? "6 = High" : "6 = Alto",
+    );
+    const guide = card.locator(".uv-guide");
+    await guide.locator("summary").focus();
+    await page.keyboard.press("Enter");
+    await expect(guide).toHaveAttribute("open", "");
+    await expect(guide.locator(".uv-category-guide")).toContainText("6–7");
+    await expect(guide.locator(".uv-protection")).toBeVisible();
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth),
     ).toBeLessThanOrEqual(width);
