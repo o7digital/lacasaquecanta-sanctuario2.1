@@ -11,6 +11,8 @@ import {
   programSchema,
   defaultProgram,
   offerEligibility,
+  travelPlanSchema,
+  transportConfirmationSchema,
 } from "./circle-schema";
 import { getContent, publicContent } from "./content";
 import { contentSchema } from "./schema";
@@ -74,7 +76,7 @@ export async function account(actor: Actor) {
     await expireLocked(client, actor, actor.id);
   });
   const pool = getPool();
-  const [profile, stays, saved, requests, membership, points, program] =
+  const [profile, stays, saved, requests, membership, points, program, travel] =
     await Promise.all([
       pool.query(
         "SELECT data,version,updated_at FROM sc_profile WHERE user_id=$1",
@@ -103,6 +105,10 @@ export async function account(actor: Actor) {
       pool.query("SELECT rules FROM sc_program WHERE tenant_id=$1", [
         actor.tenant,
       ]),
+      pool.query(
+        'SELECT stay_id AS "stayId",itinerary,version,updated_at AS "updatedAt" FROM sc_travel WHERE tenant_id=$1 AND guest_id=$2 ORDER BY updated_at DESC',
+        [actor.tenant, actor.id],
+      ),
     ]);
   const p = { ...emptyProfile(), ...profile.rows[0].data };
   const today = localDay(),
@@ -146,6 +152,7 @@ export async function account(actor: Actor) {
     profileVersion: profile.rows[0].version,
     profileUpdated: profile.rows[0].updated_at,
     stays: stays.rows,
+    travelPlans: travel.rows,
     saved: saved.rows,
     requests: requests.rows,
     membership: member,
@@ -327,6 +334,72 @@ export async function createPlan(actor: Actor, input: unknown) {
   );
   return { id: stayId, status: "project" };
 }
+export async function saveTravel(actor: Actor, input: unknown) {
+  const parsed = travelPlanSchema.safeParse(input);
+  if (!parsed.success) {
+    if (
+      parsed.error.issues.some(
+        (i) => i.code === "custom" && i.path[0] === "itinerary",
+      )
+    )
+      throw new ServiceError("invalid_travel_dates");
+    throw parsed.error;
+  }
+  const data = parsed.data;
+  return transaction(async (client) => {
+    const {
+      rows: [stay],
+    } = await client.query(
+      "SELECT * FROM sc_stay WHERE id=$1 AND tenant_id=$2 AND guest_id=$3 FOR UPDATE",
+      [data.stayId, actor.tenant, actor.id],
+    );
+    if (!stay) throw new ServiceError("stay_not_found", 404);
+    if (stay.status === "cancelled")
+      throw new ServiceError("stay_not_available", 409);
+    const day = (value: unknown) =>
+      value ? new Date(value as string).toISOString().slice(0, 10) : undefined;
+    if (
+      (data.itinerary.arrival &&
+        day(stay.departure) &&
+        data.itinerary.arrival.date > day(stay.departure)!) ||
+      (data.itinerary.departure &&
+        day(stay.arrival) &&
+        data.itinerary.departure.date < day(stay.arrival)!)
+    )
+      throw new ServiceError("invalid_travel_dates");
+    const result =
+      data.version === 0
+        ? await client.query(
+            'INSERT INTO sc_travel(stay_id,tenant_id,guest_id,itinerary) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING RETURNING version,updated_at AS "updatedAt"',
+            [
+              data.stayId,
+              actor.tenant,
+              actor.id,
+              JSON.stringify(data.itinerary),
+            ],
+          )
+        : await client.query(
+            'UPDATE sc_travel SET itinerary=$1,version=version+1,updated_at=now() WHERE stay_id=$2 AND tenant_id=$3 AND guest_id=$4 AND version=$5 RETURNING version,updated_at AS "updatedAt"',
+            [
+              JSON.stringify(data.itinerary),
+              data.stayId,
+              actor.tenant,
+              actor.id,
+              data.version,
+            ],
+          );
+    if (!result.rowCount) throw new ServiceError("travel_conflict", 409);
+    await audit(client, actor, "travel.updated", data.stayId, {
+      version: result.rows[0].version,
+      legs: Object.keys(data.itinerary),
+    });
+    return {
+      stayId: data.stayId,
+      itinerary: data.itinerary,
+      ...result.rows[0],
+    };
+  });
+}
 export async function createRequest(actor: Actor, input: unknown) {
   const data = requestSchema.parse(input);
   if (data.date && data.date < localDay())
@@ -359,11 +432,19 @@ export async function createRequest(actor: Actor, input: unknown) {
   }
   return transaction(async (client) => {
     if (data.stayId) {
-      const { rowCount } = await client.query(
-        "SELECT id FROM sc_stay WHERE id=$1 AND tenant_id=$2 AND guest_id=$3 AND status <> 'cancelled'",
+      const { rowCount, rows } = await client.query(
+        "SELECT * FROM sc_stay WHERE id=$1 AND tenant_id=$2 AND guest_id=$3 AND status <> 'cancelled'",
         [data.stayId, actor.tenant, actor.id],
       );
       if (!rowCount) throw new ServiceError("stay_not_found", 404);
+      if (
+        data.kind === "transport" &&
+        (rows[0].status === "completed" ||
+          (rows[0].departure &&
+            new Date(rows[0].departure).toISOString().slice(0, 10) <
+              localDay()))
+      )
+        throw new ServiceError("stay_not_available", 409);
     }
     const requestId = id(),
       status = data.saveDraft ? "draft" : "sent";
@@ -427,7 +508,13 @@ export async function updateRequest(
     if (!r) throw new ServiceError("request_not_found", 404);
     const owner = r.guest_id === actor.id;
     if (!owner) requireRole(actor, "concierge");
-    if (status === r.status && message) {
+    const revisingTransport =
+      status === r.status &&
+      status === "confirmed" &&
+      r.kind === "transport" &&
+      input.transportConfirmation !== undefined;
+    if (revisingTransport) requireRole(actor, "concierge");
+    if (status === r.status && message && !revisingTransport) {
       await client.query(
         "INSERT INTO sc_request_update(id,request_id,actor_id,status,message) VALUES($1,$2,$3,$4,$5)",
         [id(), requestId, actor.id, status, message],
@@ -442,14 +529,27 @@ export async function updateRequest(
       !["sent", "cancelled"].includes(status)
     )
       throw new ServiceError("staff_access_required", 403);
-    if (!requestTransitions[r.status]?.includes(status))
+    if (!revisingTransport && !requestTransitions[r.status]?.includes(status))
       throw new ServiceError("invalid_transition", 409);
-    if (!owner && !message) throw new ServiceError("response_required");
+    if ((!owner || revisingTransport) && !message)
+      throw new ServiceError("response_required");
     if (
       status === "confirmed" &&
       !String(input.confirmationReference || "").trim()
     )
       throw new ServiceError("confirmation_reference_required");
+    let transportConfirmation:
+      ReturnType<typeof transportConfirmationSchema.parse> | undefined;
+    if (status === "confirmed" && r.kind === "transport") {
+      const checked = transportConfirmationSchema.safeParse(
+        input.transportConfirmation,
+      );
+      if (!checked.success)
+        throw new ServiceError("transport_confirmation_required");
+      transportConfirmation = checked.data;
+      if (transportConfirmation.pickupDate < localDay())
+        throw new ServiceError("date_in_past");
+    }
     await client.query(
       "UPDATE sc_request SET status=$1,updated_at=now(),details=details||$2::jsonb WHERE id=$3",
       [
@@ -460,6 +560,7 @@ export async function updateRequest(
                 confirmationReference: String(
                   input.confirmationReference,
                 ).slice(0, 200),
+                ...(transportConfirmation ? { transportConfirmation } : {}),
               }
             : {},
         ),
@@ -502,7 +603,20 @@ export async function updateRequest(
           );
       }
     }
-    await audit(client, actor, "request." + status, requestId);
+    await audit(
+      client,
+      actor,
+      revisingTransport ? "request.transport_revised" : "request." + status,
+      requestId,
+      revisingTransport
+        ? {
+            previous: r.details.transportConfirmation,
+            current: transportConfirmation,
+            previousReference: r.details.confirmationReference,
+            reference: String(input.confirmationReference).slice(0, 200),
+          }
+        : {},
+    );
     return { id: requestId, status };
   });
 }
@@ -856,7 +970,7 @@ export async function staffData(actor: Actor) {
   const requests = canGuests
     ? (
         await getPool().query(
-          'SELECT r.*,u.name FROM sc_request r JOIN "user" u ON u.id=r.guest_id WHERE r.tenant_id=$1 ORDER BY r.created_at DESC LIMIT 200',
+          'SELECT r.*,u.name,t.itinerary AS travel_itinerary FROM sc_request r JOIN "user" u ON u.id=r.guest_id LEFT JOIN sc_travel t ON t.stay_id=r.stay_id AND t.guest_id=r.guest_id AND t.tenant_id=r.tenant_id WHERE r.tenant_id=$1 ORDER BY r.created_at DESC LIMIT 200',
           [actor.tenant],
         )
       ).rows
@@ -925,10 +1039,26 @@ export async function guestDetail(actor: Actor, userId: string) {
       [actor.tenant, userId],
     )
   ).rows;
+  const travelPlans = actor.roles.some((r) =>
+    ["admin", "concierge"].includes(r),
+  )
+    ? (
+        await getPool().query(
+          'SELECT stay_id AS "stayId",itinerary,version,updated_at AS "updatedAt" FROM sc_travel WHERE tenant_id=$1 AND guest_id=$2 ORDER BY updated_at DESC',
+          [actor.tenant, userId],
+        )
+      ).rows
+    : [];
   await transaction((client) =>
     audit(client, actor, "guest.consulted", userId),
   );
-  return { profile: data, updatedAt: p?.updated_at, stays, points };
+  return {
+    profile: data,
+    updatedAt: p?.updated_at,
+    stays,
+    points,
+    travelPlans,
+  };
 }
 export async function editorial(actor: Actor) {
   requireRole(actor, "editor");

@@ -74,6 +74,8 @@ export const ALL: APIRoute = async ({ request, params, url }) => {
       result = await circle.importNotebook(actor, data);
     else if (method === "POST" && path === "plans")
       result = await circle.createPlan(actor, data);
+    else if (method === "PUT" && path === "travel")
+      result = await circle.saveTravel(actor, data);
     else if (method === "POST" && path === "requests")
       result = await circle.createRequest(actor, data);
     else if (method === "PUT" && /^requests\/[a-f0-9-]{36}$/.test(path))

@@ -10,6 +10,8 @@ export default function RequestForm({
   itemId?: string;
 }) {
   const t = (en: string, es: string) => (lang === "en" ? en : es);
+  const isDinner = kind === "experience" && itemId === "romantic-beach-dinner";
+  const canBeSurprise = kind === "moment" || isDinner;
   const [account, setAccount] = useState<any>(),
     [status, setStatus] = useState(""),
     [busy, setBusy] = useState(false),
@@ -77,6 +79,12 @@ export default function RequestForm({
                 authorisedContact: surprise
                   ? fd.get("authorisedContact")
                   : undefined,
+                dining: isDinner
+                  ? {
+                      setting: "beach",
+                      localTime: fd.get("dinnerTime") || undefined,
+                    }
+                  : undefined,
                 idempotencyKey: key,
                 saveDraft:
                   (e.nativeEvent as SubmitEvent).submitter?.getAttribute(
@@ -127,13 +135,54 @@ export default function RequestForm({
           <div className="form-grid">
             <label>
               {t("Desired date", "Fecha deseada")}
-              <input type="date" name="date" />
+              <input type="date" name="date" required={isDinner} />
             </label>
             <label>
               {t("Number of people", "Número de personas")}
-              <input type="number" name="people" min="1" max="500" />
+              <input
+                type="number"
+                name="people"
+                min="1"
+                max="500"
+                required={isDinner}
+              />
             </label>
           </div>
+          {isDinner && (
+            <>
+              <label>
+                {t(
+                  "Desired local dinner time (optional)",
+                  "Hora local deseada para la cena (opcional)",
+                )}
+                <input
+                  type="time"
+                  name="dinnerTime"
+                  aria-label={t(
+                    "Desired local dinner time (optional)",
+                    "Hora local deseada para la cena (opcional)",
+                  )}
+                  aria-describedby="dinner-time-note"
+                />
+                <small id="dinner-time-note">
+                  {t(
+                    "Zihuatanejo time · the house must confirm the arrangement.",
+                    "Hora de Zihuatanejo · la casa debe confirmar la organización.",
+                  )}
+                </small>
+              </label>
+              <label>
+                {t("Occasion (optional)", "Ocasión (opcional)")}
+                <input name="occasion" maxLength={150} />
+              </label>
+              <p className="caption">
+                {t(
+                  "A beach setting is a wish to discuss. The house must confirm the location, setup, weather alternative, menu and price before the dinner is arranged.",
+                  "El montaje en la playa es un deseo por consultar. La casa debe confirmar lugar, montaje, alternativa por clima, menú y precio antes de organizar la cena.",
+                )}
+              </p>
+            </>
+          )}
           {(kind === "wedding" || kind === "moment") && (
             <>
               <label>
@@ -169,7 +218,7 @@ export default function RequestForm({
             )}
             <textarea name="dietaryNotes" maxLength={2000} rows={2} />
           </label>
-          {kind === "moment" && (
+          {canBeSurprise && (
             <>
               <label className="check">
                 <input
@@ -210,6 +259,7 @@ export default function RequestForm({
             <button
               className="text-link"
               value="draft"
+              formNoValidate={isDinner}
               disabled={busy || Boolean(done)}
             >
               {t("Save as draft", "Guardar borrador")}

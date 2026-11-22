@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { createAuthClient } from "better-auth/react";
 import type { Content } from "../lib/schema";
-import { api, message, statusLabel } from "../lib/client";
+import { api, message, statusLabel, requestKindLabel } from "../lib/client";
 import { interests } from "../lib/circle-schema";
 import { bookingUrl, localDay } from "../lib/travel";
 import AuthForm from "./AuthForm";
+import TravelPlanner from "./TravelPlanner";
 export const interestLabel = (value: string, lang: string) =>
   (
     ({
@@ -41,6 +42,25 @@ export default function Account({
     const next = await api("account");
     setData(next);
     setProfile(next.profile);
+    setSelectedStay((previous) => {
+      if (previous && next.stays.some((stay: any) => stay.id === previous))
+        return previous;
+      const today = localDay();
+      const confirmed = next.stays
+        .filter(
+          (stay: any) =>
+            stay.status === "confirmed" && stay.departure?.slice(0, 10) > today,
+        )
+        .sort((a: any, b: any) =>
+          (a.arrival || "").localeCompare(b.arrival || ""),
+        )[0];
+      return (
+        confirmed?.id ||
+        next.stays.find((stay: any) => stay.status === "project")?.id ||
+        next.stays[0]?.id ||
+        ""
+      );
+    });
   };
   useEffect(() => {
     load().catch((e) => setError(e.message));
@@ -147,7 +167,10 @@ export default function Account({
       )}
       <p>{s.data?.notes}</p>
       <button className="text-link" onClick={() => setSelectedStay(s.id)}>
-        {t("Open this stay notebook", "Abrir el cuaderno de esta estancia")}
+        {t(
+          "Open stay, flights & transfers",
+          "Abrir estancia, vuelos y traslados",
+        )}
       </button>
       {s.status === "project" && (
         <p className="caption">
@@ -618,6 +641,12 @@ export default function Account({
         {tab === "stays" && (
           <>
             <h2>{t("My upcoming stays", "Mis próximas estancias")}</h2>
+            <p>
+              {t(
+                "Keep your arrival and departure flights with the stay, and follow your taxi or transfer enquiries in the same space.",
+                "Conserva tus vuelos de llegada y salida con la estancia y sigue tus consultas de taxi o traslado en el mismo espacio.",
+              )}
+            </p>
             <div className="stay-grid">{upcoming.map(stayCard)}</div>
             {!upcoming.length && (
               <p>
@@ -645,13 +674,15 @@ export default function Account({
                 e.preventDefault();
                 const fd = new FormData(e.currentTarget);
                 void run(
-                  () =>
-                    api("plans", "POST", {
+                  async () => {
+                    const result = await api("plans", "POST", {
                       property: fd.get("property"),
                       arrival: fd.get("arrival") || undefined,
                       departure: fd.get("departure") || undefined,
                       notes: fd.get("notes"),
-                    }),
+                    });
+                    setSelectedStay(result.id);
+                  },
                   t(
                     "Your return project has been saved.",
                     "Tu proyecto de regreso se ha guardado.",
@@ -732,6 +763,17 @@ export default function Account({
                     "Añadir inspiraciones de mi cuaderno",
                   )}
                 </a>
+                <TravelPlanner
+                  key={chosen.id}
+                  lang={lang}
+                  stay={chosen}
+                  plan={data.travelPlans?.find(
+                    (plan: any) => plan.stayId === chosen.id,
+                  )}
+                  requests={data.requests}
+                  demo={actor.demo}
+                  onSaved={load}
+                />
               </section>
             )}
           </>
@@ -891,8 +933,130 @@ export default function Account({
             {data.requests.map((r: any) => (
               <article className="request-record" key={r.id}>
                 <p className="status-tag">{statusLabel(r.status, lang)}</p>
-                <h3>{r.details.occasion || r.kind}</h3>
+                <h3>{r.details.occasion || requestKindLabel(r.kind, lang)}</h3>
                 <p>{r.details.message}</p>
+                {r.kind === "transport" && r.details.transport && (
+                  <section className="transport-request-details">
+                    <h4>
+                      {t("Your requested transfer", "Tu traslado solicitado")}
+                    </h4>
+                    <dl className="detail-grid">
+                      {[
+                        [
+                          t("Direction", "Tipo"),
+                          r.details.transport.direction === "arrival"
+                            ? t("Arrival", "Llegada")
+                            : r.details.transport.direction === "departure"
+                              ? t("Departure", "Salida")
+                              : t("Other journey", "Otro trayecto"),
+                        ],
+                        [
+                          t("Pickup location", "Lugar de recogida"),
+                          r.details.transport.pickup,
+                        ],
+                        [
+                          t("Destination", "Destino"),
+                          r.details.transport.dropoff,
+                        ],
+                        [
+                          t(
+                            "Requested local pickup",
+                            "Recogida local solicitada",
+                          ),
+                          `${r.details.transport.pickupDate} · ${r.details.transport.pickupTime}`,
+                        ],
+                        [
+                          t("Passengers", "Pasajeros"),
+                          r.details.transport.passengers,
+                        ],
+                        [
+                          t("Luggage pieces", "Piezas de equipaje"),
+                          r.details.transport.luggage,
+                        ],
+                        [
+                          t("Flight number", "Número de vuelo"),
+                          r.details.transport.flightNumber || "—",
+                        ],
+                      ].map(([label, value]) => (
+                        <div key={String(label)}>
+                          <dt>{label}</dt>
+                          <dd>{value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                    {r.details.transport.notes && (
+                      <p>{r.details.transport.notes}</p>
+                    )}
+                  </section>
+                )}
+                {r.status === "confirmed" &&
+                  r.details.transportConfirmation && (
+                    <section className="transport-confirmation">
+                      <h4>
+                        {t(
+                          "Transfer confirmed by the house",
+                          "Traslado confirmado por la casa",
+                        )}
+                      </h4>
+                      <dl className="detail-grid">
+                        {[
+                          [
+                            t("Provider", "Prestador"),
+                            r.details.transportConfirmation.provider,
+                          ],
+                          [
+                            t(
+                              "Confirmed local pickup",
+                              "Recogida local confirmada",
+                            ),
+                            `${r.details.transportConfirmation.pickupDate} · ${r.details.transportConfirmation.pickupTime}`,
+                          ],
+                          [
+                            t("Driver", "Conductor"),
+                            r.details.transportConfirmation.driver ||
+                              t(
+                                "To be communicated by the house",
+                                "Por comunicar por la casa",
+                              ),
+                          ],
+                          [
+                            t("Vehicle", "Vehículo"),
+                            r.details.transportConfirmation.vehicle ||
+                              t(
+                                "To be communicated by the house",
+                                "Por comunicar por la casa",
+                              ),
+                          ],
+                        ].map(([label, value]) => (
+                          <div key={String(label)}>
+                            <dt>{label}</dt>
+                            <dd>{value}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                      {r.details.transportConfirmation.price !== undefined &&
+                        r.details.transportConfirmation.currency && (
+                          <p>
+                            {t("Confirmed price", "Precio confirmado")}:{" "}
+                            {r.details.transportConfirmation.price}{" "}
+                            {r.details.transportConfirmation.currency}
+                          </p>
+                        )}
+                    </section>
+                  )}
+                {r.details.dining?.localTime && (
+                  <p>
+                    {t(
+                      "Requested local dinner time",
+                      "Hora local deseada para la cena",
+                    )}
+                    : {r.details.dining.localTime} ·{" "}
+                    {t(
+                      "On the beach, subject to confirmation",
+                      "En la playa, sujeto a confirmación",
+                    )}
+                  </p>
+                )}
                 <p className="caption">
                   {t("Reference", "Referencia")}: {r.id}
                 </p>

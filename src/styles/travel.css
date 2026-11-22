@@ -1,0 +1,67 @@
+.travel-planner {
+  border-top: 1px solid var(--line);
+  margin-top: 45px;
+  padding-top: 35px;
+  min-width: 0;
+}
+.travel-planner > .eyebrow {
+  margin-top: 0;
+}
+.travel-planner .travel-flight-form,
+.travel-planner .transfer-form {
+  border: 1px solid var(--line);
+  padding: 25px;
+  margin: 30px 0;
+}
+.travel-planner h4 {
+  font: 28px/1.25 var(--serif);
+  margin: 15px 0;
+}
+.travel-planner .transfer-request-record {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+.travel-planner .transfer-request-record p,
+.transfer-receipt p {
+  overflow-wrap: anywhere;
+}
+.travel-planner fieldset {
+  margin: 0;
+}
+.travel-planner .form-status {
+  margin: 0;
+}
+.travel-planner .transfer-history {
+  margin: 35px 0;
+}
+.travel-planner .button-row {
+  margin: 0;
+}
+.travel-planner .form-grid > label {
+  min-width: 0;
+}
+.travel-planner .transfer-receipt {
+  padding: 18px;
+  background: #e5eadf;
+  font-size: 14px;
+}
+.travel-planner .transfer-receipt .text-link {
+  font-size: 14px;
+}
+.travel-planner input:disabled,
+.travel-planner select:disabled,
+.travel-planner textarea:disabled {
+  opacity: 0.75;
+}
+@media (max-width: 750px) {
+  .travel-planner .travel-flight-form,
+  .travel-planner .transfer-form {
+    padding: 18px;
+  }
+  .travel-planner .v2-form fieldset {
+    padding: 15px;
+  }
+  .travel-planner h2 {
+    font-size: 33px;
+  }
+}

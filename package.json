@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "node --env-file-if-exists=.env.local node_modules/astro/bin/astro.mjs dev --host 127.0.0.1",
+    "prebuild": "node scripts/migrate-on-deploy.mjs",
     "build": "astro build && node scripts/precache.mjs",
     "preview": "astro preview --host 127.0.0.1",
     "check": "astro check",

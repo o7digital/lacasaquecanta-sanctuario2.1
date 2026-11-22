@@ -22,7 +22,7 @@ Astro rend les pages publiques ; React gère les espaces privés. `src/data/jour
 
 En cas de panne de base, la copie éditoriale embarquée reste lisible ; les écritures privées échouent explicitement. `/admin/legacy/` conserve l’ancien studio GitHub pour la reprise des sources, sans remplacer une édition déjà enregistrée en base.
 
-`migrations/001-circle.sql` décrit les tables applicatives. Les tables d’identité et de limitation d’accès sont générées par les migrations de Better Auth, verrouillé dans `package-lock.json`. `npm run db:migrate` exécute les deux. Aucune migration ne s’exécute implicitement pendant une visite ou une compilation.
+Les fichiers SQL de `migrations/` décrivent les tables applicatives. Les tables d’identité et de limitation d’accès sont générées par les migrations de Better Auth, verrouillé dans `package-lock.json`. `npm run db:migrate` exécute les migrations locales. Aucune migration ne s’exécute pendant une visite. Le script npm `prebuild` appelle `scripts/migrate-on-deploy.mjs`, qui ne lance la migration distante que si le déploiement fournit explicitement `SC_MIGRATE_ON_BUILD=true` ; une compilation ordinaire n’effectue aucune migration.
 
 Les photos téléversées par un éditeur sont conservées dans `sc_media`, limitées à 3 Mo et servies avec type d’image et `nosniff`. Les images de la maison sont publiques ; les médias de démonstration restent limités à leur espace. Ne téléverser que des médias autorisés à la publication.
 
@@ -59,9 +59,15 @@ Le carnet est réellement enregistré dans PostgreSQL. Le test Firefox ouvre un 
 
 **Séjours.** Choisir le compte vérifié, l’établissement, les dates, le statut, la référence et la source réellement consultée. L’import est daté et journalisé. Une référence et une source identiques ne créent pas plusieurs séjours. Un projet du lecteur ne devient ni réservation ni crédit de points.
 
+**Vols d’arrivée et de départ.** Le client enregistre, dans le dossier de son propre séjour ou de son projet, la compagnie, le numéro de vol, la date, l’heure locale à l’aéroport, l’aéroport et le trajet. Les deux vols peuvent être préparés séparément. Ces informations sont fournies par le voyageur : aucun billet n’est acheté ou réservé et aucun suivi aérien en temps réel n’est annoncé. Les données restent privées et les mises à jour concurrentes sont contrôlées par une version.
+
+**Taxi et transferts.** Le client choisit arrivée, départ ou autre trajet, puis précise prise en charge, destination, date, heure locale, voyageurs, bagages, numéro de vol et notes. Une demande enregistrée conserve son identifiant, ses états et la conversation avec la réception. La confirmation et ses révisions sont réservées au personnel, exigent un message, le prestataire et une référence réelle, et sont auditées ; aucun transporteur, tarif ou véhicule disponible n’est inventé. Le vol peut aider à remplir une nouvelle demande, mais une modification ultérieure de l’itinéraire aérien ne change pas silencieusement un transfert déjà envoyé : le client doit en informer la réception dans le dossier concerné.
+
+**Cena romántica en la playa.** L’expérience dispose d’une page EN/ES, accessible depuis l’accueil, l’exploration et Special Moments. Le formulaire recueille date, convives, heure locale souhaitée à Zihuatanejo, occasion et informations alimentaires volontairement partagées. Pour une surprise, seul le contact autorisé est utilisé. La proposition reste `sample` et `on_request` : la maison doit confirmer lieu et permissions de plage, montage, menu, prix, disponibilités, alternative par mauvais temps et annulation avant d’accepter la demande.
+
 **Fidélité.** Le programme de la maison est inactif par défaut, sans seuil ni avantage. Renseigner nom, critères Gold/Platinum/Black, opérations, points, conditions et avantages avant activation. Attribuer un niveau exige un rôle autorisé et une justification.
 
-Les points sont calculés sur le serveur à partir d’une règle et d’un événement validé : séjour terminé importé, expérience confirmée ou référence de échange vérifiée. Le serveur verrouille le membre et impose un identifiant d’événement unique. Un scan ne crédite rien. Les corrections et annulations ajoutent des écritures opposées. Les tables de points et d’audit refusent mise à jour et suppression.
+Les points sont calculés sur le serveur à partir d’une règle et d’un événement validé : séjour terminé importé, expérience confirmée ou référence d’échange vérifiée. Le serveur verrouille le membre et impose un identifiant d’événement unique. Un scan ne crédite rien. Les corrections et annulations ajoutent des écritures opposées. Les tables de points et d’audit refusent mise à jour et suppression.
 
 Une durée de validité configurée concerne les nouveaux crédits ; l’expiration ne retire que la part non dépensée et non déjà annulée. Une nouvelle règle ne modifie pas les anciennes écritures. Les soldes proviennent du registre, jamais du navigateur.
 
@@ -79,13 +85,15 @@ Secrets, base locale, traces Firefox, dépendances et compilation sont exclus du
 
 | Service | Présent | Encore nécessaire |
 | --- | --- | --- |
-| Base privée | PostgreSQL, migrations et parcours locaux réels | Création/connexion de Neon dans Vercel ; acceptation des conditions par le propriétaire |
+| Base privée | Neon relié au projet Vercel ; migrations explicites et PostgreSQL local | Vérifier les parcours client/réception après chaque évolution du schéma |
 | Identité | Vérification et récupération testées localement | Clé Resend, expéditeur vérifié, premier administrateur et livraison réelle vérifiée |
 | Réservations | Lien officiel SynXis, import contrôlé, adaptateur entrant signé | Nom du PMS réel, contrat d’API, accès et correspondance des comptes |
 | CRM | Interface isolée et erreur explicite sans connexion | Fournisseur réel et contrat d’échange |
 | Newsletter | Adaptateur Mailchimp, langue, thèmes et double confirmation | Confirmation du fournisseur de l’hôtel, clé, audience et URL de préférences/désinscription |
 | Météo | Open-Meteo, unités, heure locale, fraîcheur et erreur explicite | Pour l’exploitation commerciale : fournisseur ou clé validé par l’hôtel |
 | Circle | Registre, rôles, cartes et scan | Barèmes, critères, avantages et conditions approuvés |
+
+Le déploiement de livraison migre explicitement Neon avant compilation. La démonstration privée utilise cette base et ne nécessite pas l’envoi d’e-mails réels. Vérifier les parcours distants après publication. L’enrôlement et la récupération des clients réels restent fermés sans clé Resend et expéditeur vérifié.
 
 Aucun fournisseur PMS ou CRM n’a pu être identifié dans ce dépôt. Le lien SynXis n’accorde pas d’accès aux réservations. Mailchimp est un adaptateur conservé, pas la preuve d’un compte hôtelier connecté.
 
@@ -114,9 +122,11 @@ Les tests d’intégration refusent une base distante et ne contactent aucun des
 ```sh
 vercel project inspect --non-interactive
 git push -u origin codex/el-sanctuario-v2
-vercel deploy --prod --yes --scope olivier-steineur --project el-sanctuario-21
+vercel deploy --prod --yes --scope olivier-steineur --project el-sanctuario-21 --build-env SC_MIGRATE_ON_BUILD=true
 ```
 
-Projet indépendant : `olivier-steineur/el-sanctuario-21`, ID `prj_R51X3spb8kne8bZok2ZACtPIlZgO`. Il ne remplace pas le site hôtelier. `PUBLIC_SITE_URL` fixe l’origine canonique et `PUBLIC_INDEXABLE` reste faux pour la preview. Utiliser des bases et secrets distincts pour un futur domaine commercial. Migrer explicitement la base cible avant ouverture des comptes.
+Le flag de cette commande autorise la migration pendant `prebuild`, avant la compilation du même déploiement. Ne pas l’enregistrer comme variable permanente : les déploiements ordinaires sans ce flag ne migrent pas la base. La connexion et le secret d’identité sont fournis directement par l’environnement Vercel ; aucune URL de connexion ni aucun secret distant n’est copié dans un fichier local.
+
+Projet indépendant : `olivier-steineur/el-sanctuario-21`, ID `prj_R51X3spb8kne8bZok2ZACtPIlZgO`. Il ne remplace pas le site hôtelier. `PUBLIC_SITE_URL` fixe l’origine canonique et `PUBLIC_INDEXABLE` reste faux pour la preview. Utiliser des bases et secrets distincts pour un futur domaine commercial. Migrer et vérifier explicitement la base cible avant ouverture des comptes réels.
 
 Applications iOS/Android, Apple Wallet/Google Wallet et diffusion dans les stores restent en phase 2. La phase 1 fournit la PWA et des API réutilisables.

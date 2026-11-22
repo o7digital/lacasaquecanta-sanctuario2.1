@@ -19,6 +19,14 @@ Branche dédiée : `codex/el-sanctuario-v2`. Projet Vercel conservé : `olivier-
 
 Les données de démonstration sont isolées par espace et signalées dans les interfaces. Les textes initiaux, l’archive d’exemple et les propositions d’expériences ne sont pas présentés comme des publications ou disponibilités commerciales approuvées.
 
+## Ajouts vols, taxis et dîner
+
+- Vols d’arrivée et de départ rattachés au séjour ou au projet : compagnie, numéro, date et heure locale à l’aéroport, aéroport et trajet. Il s’agit de la préparation de l’itinéraire fourni par le voyageur ; aucun billet d’avion n’est acheté ou réservé et aucun statut aérien en temps réel n’est inventé.
+- Demandes de taxi ou transfert pour l’arrivée, le départ ou un autre trajet : lieu de prise en charge, destination, date, heure, personnes, bagages, numéro de vol et notes. Les états et réponses sont suivis dans le même dossier. La réception doit renseigner un prestataire et une référence pour confirmer. Modifier un vol ne modifie pas une demande de taxi déjà envoyée.
+- « Cena romántica en la playa » : page complète EN/ES et accès depuis l’accueil, l’exploration et Special Moments ; demande avec date, convives, heure locale souhaitée, occasion, alimentation et contact autorisé pour une surprise. L’emplacement de plage, ses permissions, la météo, le menu, les prix et le montage restent à confirmer par la maison. Aucun créneau ni tarif n’est déclaré disponible.
+
+Les tests couvrent la persistance des vols, les conflits entre appareils, les demandes de taxi figées à l’envoi, la confirmation puis la révision par la réception, le jour du départ, les erreurs réseau et le dîner bilingue. La vérification distante se lance après déploiement avec `TEST_BASE_URL`.
+
 ## Vérifications reproductibles
 
 ```sh
@@ -35,11 +43,19 @@ Les parcours Firefox couvrent publication depuis le studio, lecture EN/ES, secon
 
 ## Activation encore nécessaire en ligne
 
-La configuration Vercel contrôlée pendant cette livraison ne comporte pas de `DATABASE_URL`. La création de Neon a été tentée par la CLI ; Vercel exige une acceptation personnelle des conditions par le propriétaire. Le lien de validation fourni par la CLI s’est révélé inaccessible côté utilisateur ; la page officielle https://vercel.com/marketplace/neon a été fournie et ouverte dans Firefox. Aucun service de stockage concurrent ni stockage éphémère n’a été substitué.
+**Neon est maintenant relié au projet Vercel.** Le déploiement de livraison prépare les tables avant compilation par la commande explicite ci-dessous ; les parcours distants se vérifient ensuite dans Firefox. Aucun stockage éphémère ou service concurrent n’a été substitué.
 
-En conséquence, la revue publique peut être déployée et consultée, mais **les comptes, la démonstration privée en ligne, la réception et la synchronisation distante restent en attente de cette base**. L’interface affiche cet état. Les mêmes fonctions sont réalisées et testées avec PostgreSQL en local ; elles ne sont pas déclarées connectées sur la preview tant que la base distante n’est pas prête.
+La revue publique reste consultable. La démonstration privée, la réception et la synchronisation utilisent cette base, avec le mode de démonstration et le secret de session configurés. **L’inscription et la récupération des comptes clients réels restent fermées**, car Resend et l’expéditeur vérifié manquent encore.
 
-Pour ouvrir les comptes réels : connecter/migrer la base, configurer un expéditeur d’e-mail vérifié et son accès, désigner le premier administrateur, puis vérifier un parcours d’inscription réel. Le secret de session et l’activation conditionnelle du mode de démonstration sont préparés dans Vercel, séparément par environnement.
+La migration distante se déclenche explicitement au déploiement :
+
+```sh
+vercel deploy --prod --yes --scope olivier-steineur --project el-sanctuario-21 --build-env SC_MIGRATE_ON_BUILD=true
+```
+
+Le script npm `prebuild` appelle `scripts/migrate-on-deploy.mjs`. Sans `SC_MIGRATE_ON_BUILD=true` fourni par cette commande, aucune migration n’est lancée par la compilation. Les secrets restent dans Vercel et ne sont pas copiés dans un fichier local.
+
+Pour ouvrir les comptes réels : configurer l’expéditeur d’e-mail et son accès, désigner le premier administrateur, puis vérifier un parcours d’inscription réel. Le secret de session et le mode de démonstration sont préparés séparément par environnement.
 
 L’identité du PMS et du CRM de l’hôtel reste inconnue. Le lien de réservation officiel est conservé ; l’adaptateur entrant signé et l’import contrôlé sont prêts. Le prestataire newsletter et son audience doivent être confirmés et configurés. Aucun email commercial, séjour réel, barème ou avantage hôtelier n’est inventé ou activé. Le détail des variables et des opérations est dans [DEVELOPMENT.md](DEVELOPMENT.md).
 

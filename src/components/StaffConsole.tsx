@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { createAuthClient } from "better-auth/react";
-import { api, message, statusLabel } from "../lib/client";
+import { api, message, statusLabel, requestKindLabel } from "../lib/client";
 import { EDITORIAL_BRANCH } from "../lib/schema";
 import AuthForm from "./AuthForm";
 import Editor from "./Editor";
@@ -204,7 +204,8 @@ export default function StaffConsole() {
             <article className="staff-record" key={r.id}>
               <span className="status-tag">{statusLabel(r.status, lang)}</span>
               <h3>
-                {r.name} · {r.details.occasion || r.kind}
+                {r.name} ·{" "}
+                {r.details.occasion || requestKindLabel(r.kind, lang)}
               </h3>
               <p>{r.details.message}</p>
               <p>
@@ -212,6 +213,121 @@ export default function StaffConsole() {
                 {r.details.people &&
                   `${r.details.people} ${t("people", "personas")}`}
               </p>
+              {r.details.dining && (
+                <p>
+                  {t(
+                    "Requested beach dinner time",
+                    "Hora solicitada para la cena en la playa",
+                  )}
+                  :{" "}
+                  {r.details.dining.localTime ||
+                    t("To be arranged", "Por acordar")}{" "}
+                  · {t("Zihuatanejo local time", "Hora local de Zihuatanejo")}
+                </p>
+              )}
+              {r.details.transport && (
+                <section className="inset-panel">
+                  <h3>
+                    {t(
+                      "Requested taxi / transfer",
+                      "Taxi / traslado solicitado",
+                    )}
+                  </h3>
+                  <dl className="detail-grid">
+                    <div>
+                      <dt>{t("Pickup", "Recogida")}</dt>
+                      <dd>
+                        {r.details.transport.pickup} ·{" "}
+                        {r.details.transport.pickupDate}{" "}
+                        {r.details.transport.pickupTime}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>{t("Destination", "Destino")}</dt>
+                      <dd>{r.details.transport.dropoff}</dd>
+                    </div>
+                    <div>
+                      <dt>
+                        {t("Passengers / luggage", "Pasajeros / equipaje")}
+                      </dt>
+                      <dd>
+                        {r.details.transport.passengers} /{" "}
+                        {r.details.transport.luggage}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>{t("Related flight", "Vuelo relacionado")}</dt>
+                      <dd>{r.details.transport.flightNumber || "—"}</dd>
+                    </div>
+                  </dl>
+                  <p>{r.details.transport.notes}</p>
+                  <p className="caption">
+                    {t(
+                      "Pickup time is local to the pickup point. These are the guest’s requested arrangements, awaiting the provider’s confirmation.",
+                      "La hora es local al lugar de recogida. Son los deseos del cliente, pendientes de confirmación del prestador.",
+                    )}
+                  </p>
+                </section>
+              )}
+              {r.travel_itinerary && (
+                <details>
+                  <summary>
+                    {t(
+                      "Current flight details shared by the guest",
+                      "Datos actuales de vuelos compartidos por el cliente",
+                    )}
+                  </summary>
+                  {(["arrival", "departure"] as const).map(
+                    (leg) =>
+                      r.travel_itinerary[leg] && (
+                        <p key={leg}>
+                          <strong>
+                            {leg === "arrival"
+                              ? t("Arrival", "Llegada")
+                              : t("Departure", "Salida")}
+                          </strong>
+                          : {r.travel_itinerary[leg].airline}{" "}
+                          {r.travel_itinerary[leg].number} ·{" "}
+                          {r.travel_itinerary[leg].date}{" "}
+                          {r.travel_itinerary[leg].time} ·{" "}
+                          {r.travel_itinerary[leg].airport} ·{" "}
+                          {r.travel_itinerary[leg].route}
+                        </p>
+                      ),
+                  )}
+                  <p className="caption">
+                    {t(
+                      "Guest-provided flight information. A flight change does not change an already sent transfer request; agree any revised pickup in this dossier.",
+                      "Datos del vuelo proporcionados por el cliente. Cambiar un vuelo no modifica un traslado ya solicitado; acuerda cualquier cambio de recogida en este expediente.",
+                    )}
+                  </p>
+                </details>
+              )}
+              {r.details.transportConfirmation && (
+                <section className="inset-panel">
+                  <h3>
+                    {t(
+                      "Confirmed transport arrangements",
+                      "Datos del traslado confirmados",
+                    )}
+                  </h3>
+                  <p>
+                    {r.details.transportConfirmation.provider} ·{" "}
+                    {r.details.transportConfirmation.pickupDate}{" "}
+                    {r.details.transportConfirmation.pickupTime}
+                  </p>
+                  <p>
+                    {r.details.transportConfirmation.driver} ·{" "}
+                    {r.details.transportConfirmation.vehicle}
+                  </p>
+                  {r.details.transportConfirmation.price !== undefined && (
+                    <p>
+                      {r.details.transportConfirmation.price}{" "}
+                      {r.details.transportConfirmation.currency}
+                    </p>
+                  )}
+                </section>
+              )}
               {r.details.flexibility && (
                 <p>
                   {t("Flexibility", "Flexibilidad")}: {r.details.flexibility}
@@ -252,6 +368,23 @@ export default function StaffConsole() {
                           status: f.get("status"),
                           message: f.get("message"),
                           confirmationReference: f.get("confirmationReference"),
+                          transportConfirmation:
+                            r.kind === "transport" &&
+                            f.get("status") === "confirmed"
+                              ? {
+                                  provider: f.get("provider"),
+                                  pickupDate: f.get("confirmedPickupDate"),
+                                  pickupTime: f.get("confirmedPickupTime"),
+                                  driver: f.get("driver") || "",
+                                  vehicle: f.get("vehicle") || "",
+                                  price:
+                                    f.get("confirmedPrice") !== ""
+                                      ? Number(f.get("confirmedPrice"))
+                                      : undefined,
+                                  currency:
+                                    f.get("confirmedCurrency") || undefined,
+                                }
+                              : undefined,
                         }),
                       t(
                         "Response saved in the guest’s request.",
@@ -265,10 +398,15 @@ export default function StaffConsole() {
                       {t("Next status", "Siguiente estado")}
                       <select name="status">
                         <option value={r.status}>
-                          {t(
-                            "Reply without changing status",
-                            "Responder sin cambiar el estado",
-                          )}
+                          {r.kind === "transport" && r.status === "confirmed"
+                            ? t(
+                                "Update confirmed transport and reply",
+                                "Actualizar el traslado confirmado y responder",
+                              )
+                            : t(
+                                "Reply without changing status",
+                                "Responder sin cambiar el estado",
+                              )}
                         </option>
                         {(r.status === "draft"
                           ? ["sent", "cancelled"]
@@ -289,9 +427,120 @@ export default function StaffConsole() {
                         "Actual confirmation reference (required to confirm)",
                         "Referencia real de confirmación (obligatoria para confirmar)",
                       )}
-                      <input name="confirmationReference" maxLength={200} />
+                      <input
+                        name="confirmationReference"
+                        maxLength={200}
+                        defaultValue={r.details.confirmationReference || ""}
+                      />
                     </label>
                   </div>
+                  {r.kind === "transport" && (
+                    <fieldset>
+                      <legend>
+                        {t(
+                          "Provider-confirmed transport",
+                          "Traslado confirmado por el prestador",
+                        )}
+                      </legend>
+                      <p className="caption">
+                        {t(
+                          "Confirm or update these details only after the provider accepts them. A message and confirmation reference are required; changes are recorded in the request audit.",
+                          "Confirma o actualiza estos datos cuando el prestador los acepte. Se requieren mensaje y referencia de confirmación; los cambios quedan registrados en el historial de la solicitud.",
+                        )}
+                      </p>
+                      <label>
+                        {t(
+                          "Actual taxi / transfer provider",
+                          "Prestador real del taxi / traslado",
+                        )}
+                        <input
+                          name="provider"
+                          maxLength={200}
+                          defaultValue={
+                            r.details.transportConfirmation?.provider || ""
+                          }
+                        />
+                      </label>
+                      <div className="form-grid">
+                        <label>
+                          {t(
+                            "Confirmed pickup date",
+                            "Fecha de recogida confirmada",
+                          )}
+                          <input
+                            name="confirmedPickupDate"
+                            type="date"
+                            defaultValue={
+                              r.details.transportConfirmation?.pickupDate ||
+                              r.details.transport?.pickupDate
+                            }
+                          />
+                        </label>
+                        <label>
+                          {t(
+                            "Confirmed pickup time",
+                            "Hora de recogida confirmada",
+                          )}
+                          <input
+                            name="confirmedPickupTime"
+                            type="time"
+                            defaultValue={
+                              r.details.transportConfirmation?.pickupTime ||
+                              r.details.transport?.pickupTime
+                            }
+                          />
+                        </label>
+                      </div>
+                      <label>
+                        {t("Driver (if known)", "Conductor (si se conoce)")}
+                        <input
+                          name="driver"
+                          maxLength={200}
+                          defaultValue={
+                            r.details.transportConfirmation?.driver || ""
+                          }
+                        />
+                      </label>
+                      <label>
+                        {t("Vehicle (if known)", "Vehículo (si se conoce)")}
+                        <input
+                          name="vehicle"
+                          maxLength={200}
+                          defaultValue={
+                            r.details.transportConfirmation?.vehicle || ""
+                          }
+                        />
+                      </label>
+                      <div className="form-grid">
+                        <label>
+                          {t(
+                            "Confirmed price (if known)",
+                            "Precio confirmado (si se conoce)",
+                          )}
+                          <input
+                            name="confirmedPrice"
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            defaultValue={
+                              r.details.transportConfirmation?.price ?? ""
+                            }
+                          />
+                        </label>
+                        <label>
+                          {t("Currency", "Divisa")}
+                          <input
+                            name="confirmedCurrency"
+                            maxLength={3}
+                            pattern="[A-Z]{3}"
+                            defaultValue={
+                              r.details.transportConfirmation?.currency || ""
+                            }
+                          />
+                        </label>
+                      </div>
+                    </fieldset>
+                  )}
                   <label>
                     {t(
                       "Reply to the authorised contact, visible in the guest’s account",
@@ -416,6 +665,38 @@ export default function StaffConsole() {
                       {statusLabel(s.status, lang)} · {s.source} · {s.reference}
                     </p>
                   ))}
+                  {guest.travelPlans?.length > 0 && (
+                    <section>
+                      <h3>
+                        {t(
+                          "Shared arrival & departure flights",
+                          "Vuelos compartidos de llegada y salida",
+                        )}
+                      </h3>
+                      {guest.travelPlans.map((travel: any) => (
+                        <div className="staff-record" key={travel.stayId}>
+                          {(["arrival", "departure"] as const).map(
+                            (leg) =>
+                              travel.itinerary[leg] && (
+                                <p key={leg}>
+                                  <strong>
+                                    {leg === "arrival"
+                                      ? t("Arrival", "Llegada")
+                                      : t("Departure", "Salida")}
+                                  </strong>
+                                  : {travel.itinerary[leg].airline}{" "}
+                                  {travel.itinerary[leg].number} ·{" "}
+                                  {travel.itinerary[leg].date}{" "}
+                                  {travel.itinerary[leg].time} ·{" "}
+                                  {travel.itinerary[leg].airport} ·{" "}
+                                  {travel.itinerary[leg].route}
+                                </p>
+                              ),
+                          )}
+                        </div>
+                      ))}
+                    </section>
+                  )}
                   <form
                     className="v2-form"
                     onSubmit={(e) => {
@@ -469,7 +750,6 @@ export default function StaffConsole() {
                     <label>
                       {t("Verified status", "Estado verificado")}
                       <select name="status">
-
                         {["confirmed", "completed", "cancelled"].map((s) => (
                           <option value={s} key={s}>
                             {statusLabel(s, lang)}

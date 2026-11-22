@@ -38,6 +38,22 @@ export const message = (error: unknown, lang: string) => {
       "Your profile changed in another session. Reload before saving.",
       "Tu perfil cambió en otra sesión. Recarga antes de guardar.",
     ],
+    travel_conflict: [
+      "These flight details changed in another session. Reload before saving.",
+      "Los datos del vuelo cambiaron en otra sesión. Recarga antes de guardar.",
+    ],
+    invalid_travel_dates: [
+      "Check the flight dates against your stay. Departure must follow arrival.",
+      "Revisa las fechas de los vuelos y de tu estancia. La salida debe ser posterior a la llegada.",
+    ],
+    transport_confirmation_required: [
+      "Enter the actual transport provider and confirmed pickup date and time.",
+      "Introduce el prestador real del traslado y la fecha y hora de recogida confirmadas.",
+    ],
+    stay_not_available: [
+      "This stay is completed or cancelled; new transfer enquiries are closed.",
+      "La estancia ha finalizado o está cancelada; no se admiten nuevas consultas de traslado.",
+    ],
     staff_access_required: [
       "This account does not have the required staff permission.",
       "Esta cuenta no tiene el permiso de personal necesario.",
@@ -99,3 +115,14 @@ export const statusLabel = (status: string, lang: string) =>
       expired: ["Expired", "Caducados"],
     }) as Record<string, string[]>
   )[status]?.[lang === "en" ? 0 : 1] || status;
+export const requestKindLabel = (kind: string, lang: string) =>
+  (
+    ({
+      experience: ["Experience", "Experiencia"],
+      wedding: ["Wedding", "Boda"],
+      moment: ["Special moment", "Momento especial"],
+      stay: ["Stay enquiry", "Consulta de estancia"],
+      offer: ["Offer", "Oferta"],
+      transport: ["Taxi / transfer", "Taxi / traslado"],
+    }) as Record<string, string[]>
+  )[kind]?.[lang === "en" ? 0 : 1] || kind;

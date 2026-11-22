@@ -858,6 +858,69 @@
         "en": "La Casa Que Canta · photograph from the hotel collection",
         "es": "La Casa Que Canta · fotografía de la colección del hotel"
       }
+    },
+    {
+      "id": "romantic-beach-dinner",
+      "category": "gastronomy",
+      "context": "hotel",
+      "status": "sample",
+      "title": {
+        "en": "A romantic dinner on the beach.",
+        "es": "Cena romántica en la playa."
+      },
+      "intro": {
+        "en": "An evening for the two of you, shaped around your wishes. Ask the house to explore a romantic dinner by the sea.",
+        "es": "Una noche para ustedes, a la medida de sus deseos. Consulta con la casa por una cena romántica junto al mar."
+      },
+      "body": {
+        "en": "An anniversary, a honeymoon, a proposal, or the pleasure of sharing an evening together. Start with the atmosphere you imagine: a quiet table, the sound of the water and time to enjoy each other’s company.\n\nThis is an editorial invitation to enquire about a romantic dinner on the beach, subject to the house’s approval. No beach location, setup, menu or availability has been confirmed. The photograph comes from the existing hotel collection; it does not show a guaranteed dinner arrangement.\n\n## Begin with your evening\n\nShare your preferred date, number of guests, desired local time and the occasion, if you would like to mention it. Attach the enquiry to your stay or return project so the house can keep the conversation together. A preferred time remains a wish until the team confirms it.\n\n## A table with care\n\nYou can include dietary preferences, allergies or intolerances that you choose to share for this dinner. These are not inferred from your profile or from what you read. The kitchen must explicitly confirm the menu and what it can accommodate.\n\n## If it is a surprise\n\nChoose the email address the team is authorised to contact. The enquiry does not automatically notify another traveller. You can continue discussing the details privately in the same request.\n\n## Let the house confirm the details\n\nThe house must confirm that a beach location and its permissions are suitable, along with access, setup, service, menu, price, inclusions and cancellation conditions. Weather may require another setting; any alternative should be agreed with you. Your enquiry receives a reference only after it is saved, and becomes confirmed only after the house’s explicit reply.",
+        "es": "Un aniversario, una luna de miel, una propuesta o simplemente el placer de compartir una noche. Empieza por el ambiente que imaginas: una mesa tranquila, el sonido del agua y tiempo para disfrutar juntos.\n\nEsta es una invitación editorial a consultar por una cena romántica en la playa, sujeta a la aprobación de la casa. No hay lugar, montaje, menú ni disponibilidad confirmados. La fotografía pertenece a la colección existente del hotel; no muestra un montaje de cena garantizado.\n\n## Comienza por tu noche\n\nComparte fecha deseada, número de personas, hora local preferida y la ocasión, si quieres mencionarla. Vincula la consulta a tu estancia o proyecto de regreso para mantener la conversación en un solo lugar. La hora preferida sigue siendo un deseo hasta que el equipo la confirme.\n\n## Una mesa con cuidado\n\nPuedes incluir preferencias alimentarias, alergias o intolerancias que elijas compartir para esta cena. No se deducen de tu perfil ni de lo que lees. La cocina debe confirmar expresamente el menú y lo que puede atender.\n\n## Si es una sorpresa\n\nElige el correo al que el equipo está autorizado a contactar. La consulta no avisa automáticamente a otro viajero. Puedes seguir preparando los detalles de forma privada en la misma solicitud.\n\n## Deja que la casa confirme los detalles\n\nLa casa debe confirmar que el lugar y los permisos de playa sean adecuados, además del acceso, montaje, servicio, menú, precio, inclusiones y condiciones de cancelación. El clima puede requerir otro espacio; cualquier alternativa se acordará contigo. La consulta recibe una referencia solo después de guardarse y se confirma únicamente tras una respuesta expresa de la casa."
+      },
+      "image": "/assets/sunset.jpg",
+      "provider": {
+        "en": "House coordination, subject to approval",
+        "es": "Coordinación de la casa, sujeta a aprobación"
+      },
+      "location": {
+        "en": "Beach setting to be agreed with the house",
+        "es": "Lugar en la playa por acordar con la casa"
+      },
+      "duration": {
+        "en": "To be agreed in the proposal",
+        "es": "Por acordar en la propuesta"
+      },
+      "languages": {
+        "en": "To be confirmed by the house",
+        "es": "Por confirmar con la casa"
+      },
+      "level": {
+        "en": "Share access or mobility requirements, if any",
+        "es": "Comparte necesidades de acceso o movilidad, si las hay"
+      },
+      "practical": {
+        "en": "Preferred date, local time, guests, occasion and any dietary information you choose to share. A surprise uses only your authorised contact.",
+        "es": "Fecha, hora local, personas, ocasión e información alimentaria que elijas compartir. Para una sorpresa se utiliza solo el contacto autorizado."
+      },
+      "conditions": {
+        "en": "On request only. The house must confirm a suitable beach location and permissions, setup, menu, availability, price and weather alternative before any arrangement is confirmed.",
+        "es": "Solo por consulta. La casa debe confirmar lugar y permisos de playa, montaje, menú, disponibilidad, precio y alternativa por clima antes de confirmar la organización."
+      },
+      "cancellation": {
+        "en": "Cancellation and weather-change conditions are provided with the actual proposal, before confirmation.",
+        "es": "Las condiciones de cancelación y cambios por clima se entregan con la propuesta real, antes de confirmar."
+      },
+      "availability": "on_request",
+      "inclusions": {
+        "en": "Menu, beverages, setup and service to be specified in the house’s proposal",
+        "es": "Menú, bebidas, montaje y servicio por especificar en la propuesta de la casa"
+      },
+      "source": "https://www.lacasaquecanta.com/",
+      "interests": ["romance", "gastronomy", "sea"],
+      "imageCredit": "La Casa Que Canta",
+      "imageAlt": {
+        "en": "The Pacific coast at sunset, from the La Casa Que Canta photograph collection",
+        "es": "La costa del Pacífico al atardecer, de la colección fotográfica de La Casa Que Canta"
+      }
     }
   ],
   "offers": []

@@ -126,7 +126,7 @@ export function journalMarkup(
         .join(""),
     );
   $(".journal .section-heading").after(
-    `<nav class="home-section-links" aria-label="${t("Journal sections", "Secciones de la revista")}"><a href="/${lang}/editions/${issue?.id || ""}/">${t("Table of contents", "Índice")}</a><a href="/${lang}/chef-letters/">${t("The chef’s letters", "Las cartas del chef")}</a><a href="/${lang}/weddings/">${t("Weddings", "Bodas")}</a><a href="/${lang}/special-moments/">${t("Special Moments", "Momentos especiales")}</a><a href="/${lang}/archives/">${t("Archives", "Archivo")}</a></nav><nav class="home-section-links">${Object.entries(
+    `<nav class="home-section-links" aria-label="${t("Journal sections", "Secciones de la revista")}"><a href="/${lang}/editions/${issue?.id || ""}/">${t("Table of contents", "Índice")}</a><a href="/${lang}/chef-letters/">${t("The chef’s letters", "Las cartas del chef")}</a><a href="/${lang}/weddings/">${t("Weddings", "Bodas")}</a><a href="/${lang}/special-moments/">${t("Special Moments", "Momentos especiales")}</a><a href="/${lang}/experiences/romantic-beach-dinner/">${t("Romantic dinner on the beach", "Cena romántica en la playa")}</a><a href="/${lang}/archives/">${t("Archives", "Archivo")}</a></nav><nav class="home-section-links">${Object.entries(
       categoryLabels,
     )
       .map(
